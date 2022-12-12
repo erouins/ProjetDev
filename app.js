@@ -6,6 +6,14 @@ const cors = require('cors')
 const app = express()
 const port = 3001
 
+module.exports = {
+  url: "mongodb://localhost:27017/bezkoder_db"
+};
+
+var corsOptions = {
+  origin: "http://localhost:3001"
+};
+
 morgan(function (tokens, req, res) {
   return [
     tokens.method(req, res),
@@ -17,13 +25,13 @@ morgan(function (tokens, req, res) {
 })
 
 app.use(router)
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(morgan())
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log('Server app listening on port ' + port)
 })

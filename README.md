@@ -10,4 +10,7 @@ Pour utiliser mongoose : <https://www.npmjs.com/package/mongoose>
 Pour lier mongodb au serveur nodejs : npm install mongoose
 
 Documentation de l'API : npm install apidoc -g
-https://apidocjs.com/
+<https://apidocjs.com/>
+
+Documentation connection mongodb atlas :
+<https://www.mongodb.com/docs/guides/crud/insert/>

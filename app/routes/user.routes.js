@@ -1,11 +1,8 @@
-
 module.exports = app => {
     const users = require("../controllers/user.controllers.js")
     var router =  require("express").Router();
 
-    router.post("/users/new", (req, res) => {
-        users.create()
-    })
+    router.post("/users/new", users.create)
 
     router.get("/", (req, res) => {
         res.send('src/container/home.vue')
@@ -23,7 +20,6 @@ module.exports = app => {
                 });
             });
 
-    app.use("/cesieat/users", router)
-
+    app.use("/", router)
 }
 

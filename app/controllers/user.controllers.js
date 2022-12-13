@@ -2,13 +2,27 @@ const db = require("../models");
 const User  = db.users;
 
 exports.create = (req, res) => {
+
+    if (!req.body.firstName) {
+        res.status(400).send({ message: "firstname missing" });
+        return;
+      }
+    else if (!req.body.lastName) {
+        res.status(400).send({ message: "lastname missing" });
+        return;
+      }
+    else if (!req.body.age) {
+        res.status(400).send({ message: "age missing" });
+        return;
+    }
+    
     const user = new User({
-        firstName : "Didier",
-        lastName : "Deschamps",
-        age : 10
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        age : req.body.age
     })
 
-    User.save(user).then(data => {
+    user.save(user).then(data => {
         res.send(data)
     })
     .catch(err => {

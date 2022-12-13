@@ -1,11 +1,13 @@
-const express = require('express')
-const router = require('./app/routes/user.routes')
+const app = require('express')
+const router = require('./app/routes/user.routes.js')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const app = express()
+
 const port = 3001
 const mongodb = require("./app/models")
+const path = require('path')
+var fs = require('fs')
 
 async function rundb(){
   try{
@@ -29,25 +31,17 @@ async function rundb(){
 
 //rundb()
 
-  
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })  
 
 var corsOptions = {
   origin: "http://localhost:3001"
 };
 
-morgan(function (tokens, req, res) {
-  return [
-    tokens.method(req, res),
-    tokens.url(req, res),
-    tokens.status(req, res),
-    tokens.res(req, res, 'content-length'), '-',
-    tokens['response-time'](req, res), 'ms'
-  ].join(' ')
-})
+
 
 app.use(router)
 app.use(cors(corsOptions))
-app.use(morgan())
+app.use(morgan('combined', {skip: function (req, res) { return res.statusCode < 400 }, stream: accessLogStream }))
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({
   extended: true

@@ -1,6 +1,6 @@
 
 module.exports = app => {
-    const users = require("../models/user.js")
+    const users = require("../controllers/user.controllers.js")
     var router =  require("express").Router();
 
     router.post("/users/new", (req, res) => {
@@ -23,6 +23,7 @@ module.exports = app => {
                 });
             });
 
-    module.exports = router;
+    app.use("/cesieat/users", router)
+
 }
 

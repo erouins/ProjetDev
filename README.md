@@ -8,3 +8,6 @@ On utilise cors  : npm install cors
 on utilise morgan : npm install cors morgan nodemon
 Pour utiliser mongoose : <https://www.npmjs.com/package/mongoose>
 Pour lier mongodb au serveur nodejs : npm install mongoose
+
+Documentation de l'API : npm install apidoc -g
+https://apidocjs.com/

@@ -5,12 +5,10 @@ const User  = db.users;
 exports.createToken = (req, res) => {
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
     let userData = new User({
-        "firstName" : "Didier",
-        "lastName" : "Deschamps",
-        "age" : 50
+        
     })
 
-    const token = jwt.sign(userData.toJSON(), jwtSecretKey, {expiresIn: 604800});
+    const token = jwt.sign(userData.toJSON(), jwtSecretKey);
 
     res.send(token);
 }

@@ -3,9 +3,10 @@ module.exports = app => {
     var router =  require("express").Router();
 
     router.post("/users/new", users.create)
+    router.get("/users/:id", users.findById)
 
     router.get("/", (req, res) => {
-        res.send('src/container/home.vue')
+        res.send('Bienvenido el serverino')
     });
 
     router.get("/home", (req, res) => {

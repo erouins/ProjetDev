@@ -4,7 +4,6 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const dotenv = require('dotenv');
-const jwt = require('jsonwebtoken');
 
 dotenv.config();
 const mongodb = require("./app/models")

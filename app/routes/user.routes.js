@@ -2,16 +2,50 @@ module.exports = app => {
     const users = require("../controllers/user.controllers.js")
     var router =  require("express").Router();
 
-    router.post("/users/new", users.create)
-    router.get("/users/:id", users.findById)
+    router.post("/generateToken", (req, res) => {
+        // Validate User Here
+        // Then generate JWT Token
+    
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        let data = {
+            time: Date(),
+            userId: 12,
+        }
+    
+        const token = jwt.sign(data, jwtSecretKey);
+    
+        res.send(token);
+    })
+
+    router.get("/validateToken", (req, res) => {
+        // Tokens are generally passed in the header of the request
+        // Due to security reasons.
+    
+        let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+    
+        try {
+            const token = req.header(tokenHeaderKey);
+    
+            const verified = jwt.verify(token, jwtSecretKey);
+            if(verified){
+                return res.send("Successfully Verified");
+            }else{
+                // Access Denied
+                return res.status(401).send(error);
+            }
+        } catch (error) {
+            // Access Denied
+            return res.status(401).send(error);
+        }
+    })
+
+    router.post("/new", users.create)
+    router.get("/:id", users.findById)
 
     router.get("/", (req, res) => {
-        res.send('Bienvenido el serverino')
+        res.send('Bienvenido el users')
     });
-
-    router.get("/home", (req, res) => {
-        res.vue()
-    })
 
     router
         .use((req, res) => {
@@ -21,6 +55,6 @@ module.exports = app => {
                 });
             });
 
-    app.use("/", router)
+    app.use("/users/", router)
 }
 

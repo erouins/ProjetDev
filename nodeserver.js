@@ -3,8 +3,10 @@ const app = express()
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
 
-
+dotenv.config();
 const mongodb = require("./app/models")
 const path = require('path')
 var fs = require('fs')
@@ -46,9 +48,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-const port = 3001
 require("./app/routes/user.routes")(app)
 
-app.listen(process.env.PORT || port, () => {
-  console.log('Server app listening on port ' + port)
+app.listen(process.env.PORT || dotenv.PORT, () => {
+  console.log('Server app listening on port ' + dotenv.PORT)
 })

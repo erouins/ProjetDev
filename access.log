@@ -1,1 +1,2 @@
 ::1 - - [14/Dec/2022:08:18:45 +0000] "GET /users/6398ed7b03d2d4d6838ec1d6 HTTP/1.1" 500 1210 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+::1 - - [14/Dec/2022:11:02:16 +0000] "GET / HTTP/1.1" 404 139 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"

@@ -2,7 +2,7 @@ const express = require("express")
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-
+const checkTokenMiddleware = require('./app/middlewares/jsonwebtoken/check')
 /*************************************************/ 
 /*** Initialisation des variabls d'environnement */
 const dotenv = require('dotenv').config()
@@ -46,7 +46,7 @@ const authRoutes = require("./app/routes/auth.routes")
 /******************************/
 /*** Mise en place du routage */
 app.get('/', (req, res) => res.send(`I'm online. All is OK !`))
-app.use('/users', userRoutes)
+app.use('/users', checkTokenMiddleware, userRoutes)
 app.use('/auth', authRoutes)
 
 app.get('*', (req, res) => res.status(501).send('What the hell are you doing !?!'))

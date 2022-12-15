@@ -4,7 +4,7 @@
     "description": "",
     "main": "nodeserver.js",
     "scripts": {
-        "start": "nodemon nodeserver.js",
+        "start": "nodemon -r dotenv/config nodeserver.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",

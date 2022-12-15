@@ -1,40 +1,6 @@
 const db = require("../models");
-const jwt = require('jsonwebtoken');
 const User  = db.users;
 
-exports.createToken = (req, res) => {
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-    let userData = new User({
-        
-    })
-
-    const token = jwt.sign(userData.toJSON(), jwtSecretKey);
-
-    res.send(token);
-}
-
-exports.validateToken = (req, res) => {
-    // Tokens are generally passed in the header of the request
-    // Due to security reasons.
-
-    let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
-
-    try {
-        const token = req.header(tokenHeaderKey);
-
-        const verified = jwt.verify(token, jwtSecretKey);
-        if(verified){
-            return res.send("Successfully Verified");
-        }else{
-            // Access Denied
-            return res.status(401).send(error);
-        }
-    } catch (error) {
-        // Access Denied
-        return res.status(401).send(error);
-    }
-}
 
 exports.create = (req, res) => {
 
@@ -46,15 +12,15 @@ exports.create = (req, res) => {
         res.status(400).send({ message: "lastname missing" });
         return;
       }
-    else if (!req.body.age) {
-        res.status(400).send({ message: "age missing" });
+    else if (!req.body.email) {
+        res.status(400).send({ message: "email missing" });
         return;
     }
     
     const user = new User({
         firstName : req.body.firstName,
         lastName : req.body.lastName,
-        age : req.body.age
+        age : req.body.email
     })
 
     user.save(user).then(data => {

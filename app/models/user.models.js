@@ -3,7 +3,7 @@ module.exports = mongoose => {
   const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    age: Number
+    email: String
   });
 
 

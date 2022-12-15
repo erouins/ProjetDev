@@ -2,11 +2,11 @@ module.exports = app => {
     const users = require("../controllers/user.controllers.js")
     var router =  require("express").Router();
 
-    router.post("/generateToken", users.createToken)
+    router.put("/generateToken", users.createToken)
 
     router.get("/validateToken", users.validateToken)
 
-    router.post("/new", users.create)
+    router.put("/new", users.create)
 
     router.get("/:id", users.findById)
 

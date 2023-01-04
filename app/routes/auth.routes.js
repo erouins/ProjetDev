@@ -13,11 +13,11 @@ router.use( (req, res, next) => {
     const event = new Date()
     console.log('AUTH Time:', event.toString())
     next()
-})
+});
 
 /**********************************/
 /*** Routage de la ressource Auth */
 
-router.post('/login', authCtrl.login)
+router.put('/login', authCtrl.login);
 
-module.exports = router
+module.exports = router;

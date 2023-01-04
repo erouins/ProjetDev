@@ -1,15 +1,11 @@
-const db = require("../models");
+const db = require("../../db.config");
 const User  = db.users;
 
 
 exports.create = (req, res) => {
 
-    if (!req.body.firstName) {
-        res.status(400).send({ message: "firstname missing" });
-        return;
-      }
-    else if (!req.body.lastName) {
-        res.status(400).send({ message: "lastname missing" });
+    if (!req.body.password) {
+        res.status(400).send({ message: "password missing" });
         return;
       }
     else if (!req.body.email) {
@@ -18,10 +14,9 @@ exports.create = (req, res) => {
     }
     
     const user = new User({
-        firstName : req.body.firstName,
-        lastName : req.body.lastName,
-        age : req.body.email
-    })
+        password : req.body.password,
+        email : req.body.email
+    });
 
     user.save(user).then(data => {
         res.send(data)

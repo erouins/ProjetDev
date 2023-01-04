@@ -1,9 +1,8 @@
 module.exports = mongoose => {
 
   const userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    email: String
+     email: String,
+     password: String
   });
 
 

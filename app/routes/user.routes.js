@@ -1,23 +1,26 @@
-module.exports = app => {
-    const users = require("../controllers/user.controllers.js")
-    var router =  require("express").Router();
+/***********************************/
+/*** Import des module nécessaires */
+const express = require('express')
+const userCtrl = require("../controllers/user.controllers.js");
 
-    router.put("/generateToken", users.createToken)
+/***************************************/
+/*** Récupération du routeur d'express */
+let router = express.Router();
 
-    router.get("/validateToken", users.validateToken)
+/**********************************/
+/*** Routage de la ressource User */
 
-    router.put("/new", users.create)
+router.post("/new", userCtrl.create);
+router.get("/:id", userCtrl.findById);
 
-    router.get("/:id", users.findById)
-
-    router
-        .use((req, res) => {
-                res.status(404);
-                res.json({
-                    error: "Page not found"
-                });
+router
+    .use((req, res) => {
+            res.status(404);
+            res.json({
+                error: "Page not found"
             });
+        });
 
-    app.use("/users/", router)
-}
+module.exports = router;
+
 

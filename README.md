@@ -12,6 +12,8 @@ on utilise morgan : npm install cors morgan nodemon
 Pour utiliser mongoose : <https://www.npmjs.com/package/mongoose>
 Pour lier mongodb au serveur nodejs : npm install mongoose
 
+Recuperer les var d'environnement : npm install dotenv
+
 Documentation de l'API : npm install apidoc -g
 <https://apidocjs.com/>
 

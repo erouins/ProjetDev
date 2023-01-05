@@ -1,5 +1,4 @@
-const db = require("../../db.config");
-const User  = db.users;
+const Usermodel = require("../models/user.models");
 
 
 exports.create = (req, res) => {
@@ -13,10 +12,16 @@ exports.create = (req, res) => {
         return;
     }
     
-    const user = new User({
+
+    const user = new Usermodel({
         password : req.body.password,
-        email : req.body.email
+        email : req.body.email,
+        firstname : req.body.firstname,
+        lastname : req.body.lastname,
+        type : req.body.type
     });
+
+    
 
     user.save(user).then(data => {
         res.send(data)
@@ -25,8 +30,8 @@ exports.create = (req, res) => {
         res.status(500).send({
             mesage: 
                 err.message || "Some error occured while creating new user"
-        })
-    })
+        });
+    });
 }
 
 exports.findById = (req, res) => {

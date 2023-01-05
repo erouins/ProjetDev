@@ -1,16 +1,24 @@
-module.exports = mongoose => {
+const Sequelize = require('sequelize');
+const db = require('../../sqldb.config');
 
-  const userSchema = new mongoose.Schema({
-     email: String,
-     password: String
-  });
+const User = db.define("User", {
+  email: {
+    type: Sequelize.STRING
+  },
+  password: {
+    type: Sequelize.STRING
+  },
+  firstname: {
+    type: Sequelize.STRING
+  },
+  lastname: {
+    type: Sequelize.STRING
+  },
+  type: {
+    type: Sequelize.STRING
+  },
+},);
 
+User.sync();
 
-    const User = mongoose.model(
-      "User",
-      userSchema
-    );
-  
-    return User;
-  };
-
+module.exports = User;

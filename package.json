@@ -17,7 +17,9 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.8.0",
         "morgan": "^1.10.0",
-        "nodemon": "^2.0.20"
+        "nodemon": "^2.0.20",
+        "sequelize": "^6.28.0",
+        "tedious": "^15.1.2"
     },
     "devDependencies": {
         "@types/node": "^18.11.13"

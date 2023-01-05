@@ -11,9 +11,7 @@ const dotenv = require('dotenv').config();
 /************************************/
 /*** Import de la connexion à la DB */
 const mongodb = require("./db.config.js");
-
-
-
+const sqlserverdb = require("./sqldb.config.js");
 //compair.compair();
 
 
@@ -28,7 +26,7 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
 /*****************************/
 /*** Initialisation de l'API */
 const app = express();
-console.log("http://localhost:" + process.env.PORT );
+console.log("http://localhost:" + process.env.MONGO_PORT );
 var corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   origin: "http://localhost:" + 8080,
@@ -55,20 +53,30 @@ app.use('/auth', authRoutes);
 app.get('*', (req, res) => res.status(501).send('What the hell are you doing !?!'));
 /********************************/
 /*** Start serveur avec test DB */
+
+
+sqlserverdb.authenticate()
+.then(() => console.log('Connection to sql server has been established successfully.'))
+.catch(err => console.error('Unable to connect to the database:', err));
+
+
 mongodb.mongoose.connect(mongodb.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
   })
   .then(async () => {
     console.log("Connected to the database!");
-    app.listen(process.env.PORT || dotenv.PORT, () => {
-      console.log('Server app listening on port ' + process.env.PORT || dotenv.PORT)
+    app.listen(process.env.MONGO_PORT || dotenv.MONGO_PORT, () => {
+      console.log('Server app listening on port ' + process.env.MONGO_PORT || dotenv.MONGO_PORT)
     });
   })
   .catch(err => {
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
+
+
+
 
 
 

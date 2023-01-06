@@ -1,33 +1,36 @@
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv').config();
-const DB = require('../../db.config')
-const User = DB.users
+const User = require('../models/user.models');
+const bcrypt = require('bcrypt');
 
 /**********************************/
 /*** Routage de la ressource Auth */
 
 exports.login = async (req, res) => {
-    console.log(req.body);
+    
     const { email, password } = req.body
     
-    
+    console.log(req.body)
     // Validation des données reçues
     if(!email || !password){
-        return res.status(400).json({ message: 'Bad email or password'})
+        return res.status(400).json({ message: 'no email or password'})
     }
 
     try{
         // Vérification si l'utilisateur existe
-        let user = await User.findOne({ email: email, raw: true});
+        let user = await User.findOne({ where: { email: email } });
+        console.log(req.body);
         if(user === null){
             return res.status(401).json({ message: 'This account does not exists !'})
         }
         // Vérification du mot de passe
-        //let test = await bcrypt.compare(password, user.password)  
-        if(user.password != password){
+        console.log(req.body);
+        let test = await bcrypt.compare(password, user.password)  
+        if(!test){
             return res.status(401).json({ message: 'Mauvais mot de passe !'})
         }
         // Génération du token et envoi
+        console.log(req.body);
         const token = jwt.sign({
             email: user.email,
             password: user.password

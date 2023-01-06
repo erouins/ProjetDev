@@ -1,8 +1,8 @@
 const Usermodel = require("../models/user.models");
+const bcrypt = require('bcrypt');
 
 
-exports.create = (req, res) => {
-
+exports.create = async (req, res) => {
     if (!req.body.password) {
         res.status(400).send({ message: "password missing" });
         return;
@@ -11,10 +11,12 @@ exports.create = (req, res) => {
         res.status(400).send({ message: "email missing" });
         return;
     }
+
+    const hash = await bcrypt.hash(req.body.password, 10);
     
 
     const user = new Usermodel({
-        password : req.body.password,
+        password : hash ,
         email : req.body.email,
         firstname : req.body.firstname,
         lastname : req.body.lastname,

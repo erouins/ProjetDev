@@ -17,6 +17,8 @@ npm install sequelize
 
 Recuperer les var d'environnement : npm install dotenv
 
+Pour hash les mdp : npm i bcrypt
+
 Documentation de l'API : npm install apidoc -g
 <https://apidocjs.com/>
 

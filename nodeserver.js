@@ -26,7 +26,6 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
 /*****************************/
 /*** Initialisation de l'API */
 const app = express();
-console.log("http://localhost:" + process.env.MONGO_PORT );
 var corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   origin: "http://localhost:" + 8080,
@@ -55,19 +54,21 @@ app.get('*', (req, res) => res.status(501).send('What the hell are you doing !?!
 /*** Start serveur avec test DB */
 
 
-sqlserverdb.authenticate()
-.then(() => console.log('Connection to sql server has been established successfully.'))
-.catch(err => console.error('Unable to connect to the database:', err));
+
 
 
 mongodb.mongoose.connect(mongodb.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
+  }).then(async () => {
+    sqlserverdb.authenticate()
+    .then(() => console.log('Connection to sql server has been established on port', process.env.SQL_PORT))
+    .catch(err => console.error('Unable to connect to the database:', err));
   })
   .then(async () => {
     console.log("Connected to the database!");
-    app.listen(process.env.MONGO_PORT || dotenv.MONGO_PORT, () => {
-      console.log('Server app listening on port ' + process.env.MONGO_PORT || dotenv.MONGO_PORT)
+    app.listen(process.env.API_PORT || dotenv.API_PORT, () => {
+      console.log('Server app listening on port ' + process.env.API_PORT || dotenv.API_PORT)
     });
   })
   .catch(err => {

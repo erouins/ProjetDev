@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-
 module.exports = new Sequelize({
     dialect: 'mssql',
     host: 'cesieat-sqlserver.database.windows.net',

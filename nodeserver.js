@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const checkTokenMiddleware = require('./app/middlewares/jsonwebtoken/check');
 const compair = require('./compairAlgo.ts');
+const routes = require('./app/routes');
 /*************************************************/ 
 /*** Initialisation des variabls d'environnement */
 const dotenv = require('dotenv').config();
@@ -28,7 +29,7 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {
 const app = express();
 var corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  origin: "http://localhost:" + 8080,
+  
   
 };
 app.use(morgan('combined', {skip: function (req, res) { return res.statusCode < 400 }, stream: accessLogStream }));
@@ -45,16 +46,12 @@ const authRoutes = require("./app/routes/auth.routes.js");
 
 /******************************/
 /*** Mise en place du routage */
-app.get('/', (req, res) => res.send(`I'm online. All is OK !`));
-app.use('/users', userRoutes);
-app.use('/auth', authRoutes);
 
-app.get('*', (req, res) => res.status(501).send('What the hell are you doing !?!'));
 /********************************/
 /*** Start serveur avec test DB */
 
 
-
+app.use(routes);
 
 
 mongodb.mongoose.connect(mongodb.url, {

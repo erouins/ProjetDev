@@ -24,3 +24,11 @@ Documentation de l'API : npm install apidoc -g
 
 Documentation connection mongodb atlas :
 <https://www.mongodb.com/docs/guides/crud/insert/>
+
+dotenv 
+joi
+http-status
+bcrypt 
+tedious
+winston
+bcryptjs

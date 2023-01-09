@@ -8,10 +8,10 @@ const User = db.define("User", {
   password: {
     type: Sequelize.STRING
   },
-  firstname: {
+  firstName: {
     type: Sequelize.STRING
   },
-  lastname: {
+  lastName: {
     type: Sequelize.STRING
   },
   accountType: {

@@ -46,19 +46,15 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-/***********************************/
-/*** Import des modules de routage */
-const userRoutes = require("./app/routes/user.routes.js");
-const authRoutes = require("./app/routes/auth.routes.js");
 
 /******************************/
 /*** Mise en place du routage */
 
+app.use(routes);
+
+
 /********************************/
 /*** Start serveur avec test DB */
-
-
-app.use(routes);
 
 
 mongodb.mongoose.connect(mongodb.url, {

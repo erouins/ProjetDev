@@ -1,29 +1,29 @@
-const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const Sequelize = require('sequelize');
+const db = require('../../sqldb.config');
 const { tokenTypes } = require('../config/tokens');
 
-const tokenSchema = mongoose.Schema(
+const tokenSchema = db.define("Token",
   {
     token: {
-      type: String,
+      type: Sequelize.STRING,
       required: true,
       index: true,
     },
     user: {
-      type: Number,
+      type: Sequelize.MEDIUMINT,
       required: true,
     },
     type: {
-      type: String,
+      type: Sequelize.STRING,
       enum: [tokenTypes.REFRESH, tokenTypes.RESET_PASSWORD, tokenTypes.VERIFY_EMAIL],
       required: true,
     },
     expires: {
-      type: Date,
+      type: Sequelize.DATE,
       required: true,
     },
     blacklisted: {
-      type: Boolean,
+      type: Sequelize.BOOLEAN,
       default: false,
     },
   },
@@ -32,12 +32,6 @@ const tokenSchema = mongoose.Schema(
   }
 );
 
-// add plugin that converts mongoose to json
-tokenSchema.plugin(toJSON);
+tokenSchema.sync();
 
-/**
- * @typedef Token
- */
-const Token = mongoose.model('Token', tokenSchema);
-
-module.exports = Token;
+module.exports = tokenSchema;

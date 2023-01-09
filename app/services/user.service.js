@@ -11,7 +11,7 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'This email is already used !');
   }
   const hash = await bcrypt.hash(userBody.password, 10);
-  user = new Usermodel({
+  user = new User({
     password : hash ,
     email : userBody.email,
     firstName : userBody.firstName,

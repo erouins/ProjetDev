@@ -1,9 +1,10 @@
-const { Client } = require('../models');
+const { Client, Order } = require('../models');
+const logger = require('../config/logger');
+const mongoose = require('mongoose');
 
 /**
  * Create a client
  * @param {Object} profil Object containing the user profil
- * @param {Object} userId Object containing the user id
  * @returns {Promise<Client>}
  */
 const createClientProfil = async (userId, profil) => {
@@ -14,24 +15,36 @@ const createClientProfil = async (userId, profil) => {
     return Client.create(client);
 };
 
-// const getClientProfil = async (userId) => {
-//     return Client.findOne({ user: userId });
-// };
-// const updateClientProfil = async (userId, profil) => {
-//     const client = await Client.findOneAndUpdate({ user: userId }, profil, { new: true });
-//     return client;
-// };
-// const getClientOrders = async (clientId) => {
-//     return Order.find({ client: clientId, isPayed: true }).populate(['restaurant', 'delivery']);
-// };
+const getClientProfil = async (userId) => {
+    return Client.findOne({ client: userId });
+};
 
-// const createClientOrder = async (order) => {
-//     return Order.create(order);
-// };
+const updateClientProfil = async (userId, profil) => {
+    const client = await Client.findOneAndUpdate({ client: userId }, profil, { new: true });
+    return client;
+};
 
-// const getOrderById = async (orderId) => {
-//     return Order.findById(orderId).populate(["articles", "menus"]);
-// }
+const getClientOrders = async (clientId) => {
+    return Order.find({ client: clientId}).populate(['restaurant', 'delivery']);
+};
+
+const createClientOrder = async (order) => {
+    return Order.create(order);
+};
+
+const getOrderById = async (orderId) => {
+    return Order.findById(orderId).populate(["articles", "menus"]);
+}
+
+const updateOrder = async (orderId, content) => {
+    logger.debug("[ ] [SERVICE]  Attempt to UPDATE order: " + orderId);
+ 
+    // logger.debug("[ ] [SERVICE]  menuFields.id: " + menuFields.id)
+
+    console.log(orderId);
+    console.log(content);
+    return Order.findOneAndUpdate({ _id: mongoose.Types.ObjectId(orderId) }, content);
+}
 
 // const markOrderAsPaid = async (orderId) => {
 //     const order = await Order.findById(orderId);
@@ -43,11 +56,12 @@ const createClientProfil = async (userId, profil) => {
 
 
 module.exports = {
-    createClientProfil
-    // getClientProfil,
-    // getClientOrders,
-    // updateClientProfil,
-    // createClientOrder,
-    // getOrderById,
+    createClientProfil,
+    getClientProfil,
+    getClientOrders,
+    updateClientProfil,
+    createClientOrder,
+    getOrderById,
+    updateOrder,
     // markOrderAsPaid
 };

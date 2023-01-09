@@ -2,7 +2,6 @@ const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
 
-
 const createClientProfil = {
   body : Joi.object().keys({
             profil: Joi.object().keys({
@@ -11,29 +10,54 @@ const createClientProfil = {
                 address: Joi.string().required(),
                 image: Joi.string().allow(null, ""),
             }),
-            userId: Joi.string().custom(objectId),
+            userId: Joi.number().required()
         })
 }
 
-// const getClientOrders = {
-//   params: Joi.object().keys({
-//     clientId: Joi.string().custom(objectId),
-//   }),
-// };
+const updateClientProfil = {
+  body : Joi.object().keys({
+            profil: Joi.object().keys({
+                name: Joi.string(),
+                firstName: Joi.string(),
+                address: Joi.string(),
+                image: Joi.string().allow(null, ""),
+            }),
+        })
+}
 
-// const createClientOrder = {
-//     body : Joi.object().keys({
-//         order: Joi.object().keys({
-//             restaurant: Joi.string().custom(objectId),
-//             client: Joi.string().custom(objectId),
-//             menus: Joi.array().items(Joi.string().custom(objectId)),
-//             articles: Joi.array().items(Joi.string().custom(objectId))
-//         })
-//     })
-// };
+const getClientOrders = {
+    params: Joi.object().keys({
+      clientId: Joi.string().custom(objectId),
+    }),
+  };
+
+const createClientOrder = {
+    body : Joi.object().keys({
+        order: Joi.object().keys({
+            restaurant: Joi.string().custom(objectId).required(),
+            client: Joi.string().custom(objectId).required(),
+            menus: Joi.array().items(Joi.string().custom(objectId)),
+            articles: Joi.array().items(Joi.string().custom(objectId))
+        })
+    })
+};
+
+const updateOrder = {
+  body : Joi.object().keys({
+    order: Joi.object().keys({
+          menus: Joi.array().items(Joi.string().custom(objectId)),
+          articles: Joi.array().items(Joi.string().custom(objectId)),
+          isPayed : Joi.bool(),
+          status : Joi.string(),
+  }),
+  orderId : Joi.string().custom(objectId).required(),
+})
+};
 
 module.exports = {
-  createClientProfil
-  //  getClientOrders, 
-  //  createClientOrder 
+    createClientProfil,
+    updateOrder,
+   getClientOrders, 
+   createClientOrder,
+   updateClientProfil
   };

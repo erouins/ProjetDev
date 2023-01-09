@@ -32,3 +32,6 @@ bcrypt
 tedious
 winston
 bcryptjs
+passport
+
+ 

@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const checkTokenMiddleware = require('./app/middlewares/jsonwebtoken/check');
 const compair = require('./compairAlgo.ts');
+const passport = require('passport');
 const routes = require('./app/routes');
+const { jwtStrategy } = require('./app/config/passport');
 /*************************************************/ 
 /*** Initialisation des variabls d'environnement */
 const dotenv = require('dotenv').config();
@@ -32,6 +34,11 @@ var corsOptions = {
   
   
 };
+
+// jwt authentication
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
+
 app.use(morgan('combined', {skip: function (req, res) { return res.statusCode < 400 }, stream: accessLogStream }));
 app.use(cors(corsOptions));
 app.use(bodyParser.json());

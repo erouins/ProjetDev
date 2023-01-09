@@ -1,7 +1,7 @@
 /***********************************/
 /*** Import des module nécessaires */
 const express = require('express')
-const authCtrl = require('../controllers/auth.controllers')
+const authCtrl = require('../controllers/auth.controller')
 
 /***************************************/
 /*** Récupération du routeur d'express */

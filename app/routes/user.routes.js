@@ -1,7 +1,7 @@
 /***********************************/
 /*** Import des module nécessaires */
 const express = require('express')
-const userCtrl = require("../controllers/user.controllers.js");
+const authController = require("../controllers/auth.controller");
 
 /***************************************/
 /*** Récupération du routeur d'express */
@@ -10,8 +10,8 @@ let router = express.Router();
 /**********************************/
 /*** Routage de la ressource User */
 
-router.post("/new", userCtrl.create);
-router.get("/:id", userCtrl.findById);
+router.post("/new", authController.register);
+// router.get("/:id", authController.findById);
 
 router
     .use((req, res) => {

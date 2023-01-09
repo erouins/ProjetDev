@@ -29,3 +29,10 @@ joi
 bcrypt 
 tedious
 winston
+bcryptjs
+passport
+winston
+ 
+
+
+

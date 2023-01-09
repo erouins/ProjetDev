@@ -18,15 +18,15 @@ exports.create = async (req, res) => {
     const user = new Usermodel({
         password : hash ,
         email : req.body.email,
-        firstname : req.body.firstname,
-        lastname : req.body.lastname,
-        type : req.body.type
+        firstName : req.body.firstname,
+        lastName : req.body.lastname,
+        accountType : req.body.accountType
     });
 
     
 
     user.save(user).then(data => {
-        res.send(data)
+        res.send(data);
     })
     .catch(err => {
         res.status(500).send({
@@ -39,10 +39,10 @@ exports.create = async (req, res) => {
 exports.findById = (req, res) => {
     const id = req.params.id
 
-    User.findById(id)
+    Usermodel.findOne(id)
     .then(data => {
-        if(!data) res.status(404).send({message: "Not found user with id :" + id})
-        else res.send(data)
+        if(!data) res.status(404).send({message: "Not found user with id :" + id});
+        else res.send(data);
     })
     .catch(err => {
         res.status(500)

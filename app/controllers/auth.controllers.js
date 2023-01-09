@@ -8,9 +8,9 @@ const bcrypt = require('bcrypt');
 
 exports.login = async (req, res) => {
     
-    const { email, password } = req.body
+    const { email, password, accountType } = req.body
     
-    console.log(req.body)
+    console.log(req.body);
     // Validation des données reçues
     if(!email || !password){
         return res.status(400).json({ message: 'no email or password'})
@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
         console.log(req.body);
         const token = jwt.sign({
             email: user.email,
-            password: user.password
+            accountType: user.accountType
         }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_DURING  })
         
         return res.json({access_token: token, user_id: user.id});

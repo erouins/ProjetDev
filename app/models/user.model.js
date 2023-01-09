@@ -14,7 +14,7 @@ const User = db.define("User", {
   lastname: {
     type: Sequelize.STRING
   },
-  type: {
+  accountType: {
     type: Sequelize.STRING
   },
 },);

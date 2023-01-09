@@ -7,13 +7,17 @@ const bcrypt = require('bcryptjs');
 
 const createUser = async (userBody) => {
 
+  let user = await User.findOne({ where: { email: email } });
+  if (user != null) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'This email is already used !');
+  }
   const hash = await bcrypt.hash(userBody.password, 10);
   const user = new User({
     password : hash ,
     email : userBody.email,
-    firstname : userBody.firstname,
-    lastname : userBody.lastname,
-    type : userBody.type
+    firstName : userBody.firstName,
+    lastName : userBody.lastName,
+    accountType : userBody.accountType
   });
 
 

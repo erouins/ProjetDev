@@ -14,21 +14,18 @@ const register = catchAsync(async (req, res) => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'User not created');
     };
     const tokens = await tokenService.generateAuthTokens(user);
-    let profil;
 
-    user.profil = profil.id;
     user.save();
     res.status(httpStatus.CREATED).send({ user, tokens});
-})
+});
 
 const login = catchAsync(async (req, res) => {
     const { email, password } = req.body;
     const user = await authService.loginUserWithEmailAndPassword(email, password);
-    let profil;
-    logger.debug(user)
+    logger.debug(user);
   
     const tokens = await tokenService.generateAuthTokens(user);
-    res.send({ user, tokens, profil});
+    res.send({ user, tokens});
   });
 
   const forgotPassword = catchAsync(async (req, res) => {

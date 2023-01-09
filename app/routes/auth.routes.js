@@ -1,7 +1,9 @@
 /***********************************/
 /*** Import des module nécessaires */
 const express = require('express')
+const validate = require('../middlewares/validate');
 const authCtrl = require('../controllers/auth.controller')
+const authValidation = require('../validations/auth.validation');
 
 /***************************************/
 /*** Récupération du routeur d'express */
@@ -14,6 +16,8 @@ router.use( (req, res, next) => {
     console.log('AUTH Time:', event.toString())
     next()
 });
+
+router.post('/forgot-password', validate(authValidation.forgotPassword), authCtrl.forgotPassword);
 
 /**********************************/
 /*** Routage de la ressource Auth */

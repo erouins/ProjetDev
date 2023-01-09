@@ -2,12 +2,13 @@ const httpStatus = require('http-status');
 const { User, Client, Restaurant, Delivery } = require('../models');
 const ApiError = require('../utils/ApiError');
 const logger = require('../config/logger');
+const bcrypt = require('bcryptjs');
 
 
 const createUser = async (userBody) => {
 
   const hash = await bcrypt.hash(userBody.password, 10);
-  const user = new Usermodel({
+  const user = new User({
     password : hash ,
     email : userBody.email,
     firstname : userBody.firstname,
@@ -21,10 +22,7 @@ const createUser = async (userBody) => {
       res.send(data)
   })
   .catch(err => {
-      res.status(500).send({
-          mesage: 
-              err.message || "Some error occured while creating new user"
-      });
+    throw new ApiError(httpStatus[500], 'Error : User not created');
   });
 };
 

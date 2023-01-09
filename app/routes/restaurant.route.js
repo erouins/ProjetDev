@@ -1,4 +1,4 @@
-// const auth = require('../middlewares/auth');
+const auth = require('../middlewares/auth');
 const express = require('express');
 const validate = require('../middlewares/validate');
 const restaurantController = require('../controllers/restaurant.controller');
@@ -13,7 +13,7 @@ const router = express.Router();
 //     .get(auth(), validate(restaurantValidation.getRestaurantOrders), restaurantController.getRestaurantOrders)
 
 router.route('/:restaurantId')
-    .get(restaurantController.getRestaurantsById)
+    .get(auth(), restaurantController.getRestaurantsById)
 
 router.route('/:restaurantId/article/create')
     .post( validate(restaurantValidation.createArticle), restaurantController.createArticle)

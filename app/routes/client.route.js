@@ -14,11 +14,20 @@ const bodyParser = require('body-parser');
 
 const router = express.Router();
 
-router.route('/create').post( validate(clientValidation.createClientProfil), clientController.create);
+router.route('/create')
+    .post(validate(clientValidation.createClientProfil), clientController.create);
 
-// router.route('/:clientId/orders').get(auth(), validate(clientValidation.getClientOrders), clientController.getClientOrders);
+router.route('/:clientId/orders')
+    .get(validate(clientValidation.getClientOrders), clientController.getClientOrders);
 
-// router.route('/:clientId/create-order').post(auth(),validate(clientValidation.createClientOrder), clientController.createOrder);;
+router.route('/:clientId/create-order')
+    .post(validate(clientValidation.createClientOrder), clientController.createOrder);
+
+router.route('/:clientId/update-profil')
+    .put(validate(clientValidation.updateClientProfil), clientController.updateClientProfil);
+
+router.route('/:clientId/update-order')
+    .put(validate(clientValidation.updateOrder), clientController.updateOrder);
 
 // router.route('/:clientId/create-checkout-session').post(auth(), clientController.createCheckoutSession);
 

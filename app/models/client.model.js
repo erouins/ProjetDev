@@ -10,7 +10,7 @@ const clientSchema = mongoose.Schema(
             required: true,
             trim: true,
         },
-        name: {
+        lastName: {
             type: String,
             required: true,
             trim: true,

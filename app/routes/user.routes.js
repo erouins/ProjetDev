@@ -12,7 +12,7 @@ let router = express.Router();
 
 router.post("/new", authController.register);
 
-router.get("/find", authController.findById);
+router.post("/find", authController.findById);
 
 router
     .use((req, res) => {

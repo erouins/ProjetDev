@@ -48,9 +48,9 @@ const updateOrder = {
           menus: Joi.array().items(Joi.string().custom(objectId)),
           articles: Joi.array().items(Joi.string().custom(objectId)),
           isPayed : Joi.bool(),
-          status : Joi.string(),
   }),
   orderId : Joi.string().custom(objectId).required(),
+  action : Joi.string().required()
 })
 };
 

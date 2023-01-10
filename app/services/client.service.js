@@ -36,22 +36,12 @@ const getOrderById = async (orderId) => {
     return Order.findById(orderId).populate(["articles", "menus"]);
 }
 
-const updateOrder = async (orderId, content) => {
-    logger.debug("[ ] [SERVICE]  Attempt to UPDATE order: " + orderId);
- 
-    // logger.debug("[ ] [SERVICE]  menuFields.id: " + menuFields.id)
-
-    console.log(orderId);
-    console.log(content);
-    return Order.findOneAndUpdate({ _id: mongoose.Types.ObjectId(orderId) }, content);
+const markOrderAsPaid = async (orderId) => {
+    const order = await Order.findById(orderId);
+    order.isPayed = true;
+    await order.save();
+    return order;
 }
-
-// const markOrderAsPaid = async (orderId) => {
-//     const order = await Order.findById(orderId);
-//     order.isPayed = true;
-//     await order.save();
-//     return order;
-// }
 
 
 
@@ -62,6 +52,5 @@ module.exports = {
     updateClientProfil,
     createClientOrder,
     getOrderById,
-    updateOrder,
-    // markOrderAsPaid
+    markOrderAsPaid
 };

@@ -18,7 +18,34 @@ const createDeliveryProfil = {
         userId: Joi.number().required()
     }),
 };
+
+const updateDeliveryProfil = {
+    body : Joi.object().keys({
+              profil: Joi.object().keys({
+                  lastName: Joi.string(),
+                  firstName: Joi.string(),
+                  address: Joi.string(),
+                  image: Joi.string().allow(null, ""),
+              }),
+          })
+  };
+
+const updateDeliveryOrder = {
+    body : Joi.object().keys({
+              order: Joi.object().keys({
+                    isPayed : Joi.bool(),
+                    status : Joi.string(),
+                    delivery :  Joi.alternatives().try(createDeliveryProfil),
+              }),
+              action : Joi.string().required(),
+              deliveryId :Joi.string().custom(objectId).required(),
+              orderId : Joi.string().custom(objectId).required(),
+          })
+  }
+  
 module.exports = {
     getDelievryOrders,
-    createDeliveryProfil
+    createDeliveryProfil,
+    updateDeliveryProfil,
+    updateDeliveryOrder
 };

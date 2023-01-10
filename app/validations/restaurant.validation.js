@@ -70,6 +70,17 @@ const createRestaurant = {
       })
 }
 
+const updateRestaurantOrder = {
+    body : Joi.object().keys({
+              order: Joi.object().keys({
+                    isPayed : Joi.bool(),
+                    status : Joi.string(),
+              }),
+              action : Joi.string().required(),
+              orderId : Joi.string().custom(objectId).required(),
+          })
+  }
+
 
 
 module.exports = {
@@ -78,5 +89,6 @@ module.exports = {
     updateMenuById,
     updateArticleById,
     createMenu,
-    createRestaurant
+    createRestaurant,
+    updateRestaurantOrder
 };

@@ -10,40 +10,34 @@ const create =  catchAsync(async (req, res) => {
     res.status(httpStatus.CREATED).send(delivery);
 });
 
-// const getClientOrders = catchAsync(async (req, res) => {
-//     const orders = await clientService.getClientOrders(req.params.clientId);
-//     res.status(httpStatus.OK).send(orders);
-//   });
+const updateDeliveryProfil = catchAsync(async (req, res) => {
+    const deliveryId = req.params.deliveryId;
+    const profil = await deliveryService.updateDeliveryProfil(deliveryId, req.body.profil);
+    res.status(httpStatus.CREATED).send(profil); 
+});
 
-// const createOrder = catchAsync(async (req, res) => {
-//     const order = await clientService.createClientOrder(req.body.order);
-//     res.status(httpStatus.CREATED).send(order); 
-// });
+const getDeliveryProfil = catchAsync(async (req, res) => {
+    const delivery = await deliveryService.getDeliveryProfil(req.params.deliveryId);
+    res.status(httpStatus.OK).send(delivery);
+});
 
-// const updateClientProfil = catchAsync(async (req, res) => {
-//     const clientId = req.params.clientId;
-//     const profil = await clientService.updateClientProfil(clientId, req.body.profil);
-//     res.status(httpStatus.CREATED).send(profil); 
-// });
+const getPendingOrders = catchAsync(async (req, res) => {
+    const orders = await deliveryService.getPendingOrders();
+    res.status(httpStatus.OK).send(orders);
+});
 
-// const getClientProfil = catchAsync(async (req, res) => {
-//     const client = await clientService.getClientProfil(req.params.clientId);
-//     res.status(httpStatus.OK).send(client);
-// });
+const getDeliveryOrders = catchAsync(async (req, res) => {
+    const orders = await deliveryService.getDeliveryOrders(req.params.deliveryId);
+    res.status(httpStatus.OK).send(orders);
+});
 
-// const updateOrder = catchAsync(async (req, res) => {
-//     newOrder = req.body.order
-//     const order = await clientService.updateOrder(req.body.orderId, newOrder);
-//     res.status(httpStatus.OK).send(order);
-// });
 
 
 
 module.exports = {
     create,
-    // createOrder,
-    // getClientOrders,
-    // updateClientProfil,
-    // getClientProfil,
-    // updateOrder,
+    updateDeliveryProfil,
+    getDeliveryProfil,
+    getPendingOrders,
+    getDeliveryOrders
 };

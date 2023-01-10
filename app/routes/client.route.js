@@ -2,9 +2,9 @@
 const express = require('express');
 const validate = require('../middlewares/validate');
 const clientController = require('../controllers/client.controller');
+const userController = require('../controllers/user.controller');
 const clientValidation = require('../validations/client.validation');
-const logger = require('../config/logger');
-const bodyParser = require('body-parser');
+
 
 //const stripe = require('stripe')('sk_test_51LEAlbLhNfISaHcD8OZv3CwsgLas8yqCN08YrZUVMREgzVN0XdjDq1cH9WC7NKlc6fexCaavX6VkZmsD9wXHU3C400eWwGJ3zL');
 
@@ -27,7 +27,7 @@ router.route('/:clientId/update-profil')
     .put(validate(clientValidation.updateClientProfil), clientController.updateClientProfil);
 
 router.route('/:clientId/update-order')
-    .put(validate(clientValidation.updateOrder), clientController.updateOrder);
+    .put(validate(clientValidation.updateOrder), userController.updateOrder);
 
 // router.route('/:clientId/create-checkout-session').post(auth(), clientController.createCheckoutSession);
 

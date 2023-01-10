@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { User, Client, Restaurant, Delivery } = require('../models');
+const { User, Order } = require('../models');
 const ApiError = require('../utils/ApiError');
 const logger = require('../config/logger');
 const bcrypt = require('bcryptjs');
@@ -101,11 +101,22 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
+const updateOrder = async (orderId, content) => {
+    logger.debug("[ ] [SERVICE]  Attempt to UPDATE order: " + orderId);
+ 
+    // logger.debug("[ ] [SERVICE]  menuFields.id: " + menuFields.id)
+
+    console.log(orderId);
+    console.log(content);
+    return Order.findOneAndUpdate({ _id: orderId }, content);
+}
+
 
 
 
 module.exports = {
   createUser,
+  updateOrder,
   queryUsers,
   getUserById,
   getUserByEmail,

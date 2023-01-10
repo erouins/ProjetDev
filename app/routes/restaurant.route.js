@@ -2,6 +2,7 @@ const auth = require('../middlewares/auth');
 const express = require('express');
 const validate = require('../middlewares/validate');
 const restaurantController = require('../controllers/restaurant.controller');
+const userController = require('../controllers/user.controller');
 const restaurantValidation = require('../validations/restaurant.validation');
 
 // AJOUTER MIDDLEWARE A TOUS !!!!!!!!!!!!!!!!!!!!!!
@@ -32,6 +33,9 @@ router.route('/:restaurantId/article/update')
 
 router.route('/:restaurantId/menu/update')
     .put( validate(restaurantValidation.updateMenuById), restaurantController.updateMenuById)
+
+router.route('/:restaurantId/update-order')
+    .put( validate(restaurantValidation.updateRestaurantOrder), userController.updateOrder)
 
 
 

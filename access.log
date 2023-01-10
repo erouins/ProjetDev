@@ -141,3 +141,4 @@
 ::1 - - [10/Jan/2023:09:31:57 +0000] "POST /delivery/create HTTP/1.1" 400 2147 "-" "PostmanRuntime/7.29.0"
 ::1 - - [10/Jan/2023:09:32:33 +0000] "POST /delivery/create HTTP/1.1" 500 2156 "-" "PostmanRuntime/7.29.0"
 ::1 - - [10/Jan/2023:09:33:19 +0000] "POST /delivery/create HTTP/1.1" 500 2163 "-" "PostmanRuntime/7.29.0"
+::1 - - [10/Jan/2023:09:47:46 +0000] "POST /delivery/create HTTP/1.1" 500 868 "-" "PostmanRuntime/7.29.0"

@@ -30,6 +30,7 @@ const create =  catchAsync(async (req, res) => {
 //     const client = await clientService.getClientProfil(req.params.clientId);
 //     res.status(httpStatus.OK).send(client);
 // });
+
 // const updateOrder = catchAsync(async (req, res) => {
 //     newOrder = req.body.order
 //     const order = await clientService.updateOrder(req.body.orderId, newOrder);

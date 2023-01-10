@@ -86,17 +86,23 @@ const refreshAuth = async (refreshToken) => {
  * @returns {Promise}
  */
 const resetPassword = async (resetPasswordToken, newPassword) => {
-  try {
+
     const resetPasswordTokenDoc = await tokenService.verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
     const user = await userService.getUserById(resetPasswordTokenDoc.user);
+    console.log("resetPasswordTokenDoc.user ID: " + resetPasswordTokenDoc.user)
     if (!user) {
       throw new Error();
     }
-    await userService.updateUserById(user.id, { password: newPassword });
-    await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
-  } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
-  }
+
+    const hash = await bcrypt.hash(newPassword, 10);
+
+    await userService.updateUserById(user.id, { password: hash });
+    await Token.destroy({
+      where: {
+        user: user.id, type: tokenTypes.RESET_PASSWORD 
+      }
+  })
+  
 };
 
 /**
@@ -111,7 +117,11 @@ const verifyEmail = async (verifyEmailToken) => {
     if (!user) {
       throw new Error();
     }
-    await Token.deleteMany({ user: user.id, type: tokenTypes.VERIFY_EMAIL });
+    await Token.destroy({
+      where: {
+        user: user.id, type: tokenTypes.VERIFY_EMAIL 
+      }
+  })
     await userService.updateUserById(user.id, { isEmailVerified: true });
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');

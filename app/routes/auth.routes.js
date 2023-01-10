@@ -17,9 +17,14 @@ router.use( (req, res, next) => {
     next()
 });
 
-router.post('/forgot-password', validate(authValidation.forgotPassword), authCtrl.forgotPassword);
+// AJOUTER MIDDLEWARE A TOUS !!!!!!!!!!!!!!!!!!!!!!
 
-/**********************************/
+router.post('/forgot-password', validate(authValidation.forgotPassword), authCtrl.forgotPassword);
+router.post('/reset-password', validate(authValidation.resetPassword), authCtrl.resetPassword);
+router.post('/send-verification-email', authCtrl.sendVerificationEmail);
+router.post('/verify-email', validate(authValidation.verifyEmail), authCtrl.verifyEmail);
+
+/*********************************
 /*** Routage de la ressource Auth */
 
 router.put('/login', authCtrl.login);

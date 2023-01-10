@@ -9,9 +9,9 @@ const httpStatus = require('http-status');
 /*** Routage de la ressource Auth */
 
 const register = catchAsync(async (req, res) => {
-    const user = await userService.createUser(req.body);
+    const user = await userService.createUser(req.body, res);
     if (!user) {
-      throw new ApiError(httpStatus.BAD_REQUEST, 'User not created');
+      throw new ApiError(httpStatus.BAD_REQUEST, 'User not createdddd');
     };
     const tokens = await tokenService.generateAuthTokens(user);
 
@@ -31,13 +31,34 @@ const login = catchAsync(async (req, res) => {
   const forgotPassword = catchAsync(async (req, res) => {
     const resetPasswordToken = await tokenService.generateResetPasswordToken(req.body.email);
     await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
+    res.status(httpStatus.OK).send({  resetPasswordToken});
+  });
+  
+  const resetPassword = catchAsync(async (req, res) => {
+    await authService.resetPassword(req.query.token, req.body.password);
+    res.status(httpStatus.NO_CONTENT).send();
+  });
+
+  const sendVerificationEmail = catchAsync(async (req, res) => {
+    const verifyEmailToken = await tokenService.generateVerifyEmailToken(req.body.user);
+    await emailService.sendVerificationEmail(req.body.user.email, verifyEmailToken);
+    console.log("send verify email");
+    console.log(req.body.user.email);
+    console.log(verifyEmailToken);
     res.status(httpStatus.NO_CONTENT).send();
   });
   
+  const verifyEmail = catchAsync(async (req, res) => {
+    await authService.verifyEmail(req.query.token);
+    res.status(httpStatus.NO_CONTENT).send();
+  });
   
 
 module.exports = {
     login,
     register,
-    forgotPassword
+    forgotPassword,
+    resetPassword,
+    sendVerificationEmail,
+    verifyEmail
 }

@@ -5,14 +5,14 @@ const logger = require('../config/logger');
 const bcrypt = require('bcryptjs');
 
 
-const createUser = async (userBody) => {
+const createUser = async (userBody, res) => {
 
-  let user = await User.findOne({ where: { email: email } });
+  let user = await User.findOne({ where: { email: userBody.email } });
   if (user != null) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'This email is already used !');
   }
   const hash = await bcrypt.hash(userBody.password, 10);
-  const user = new User({
+  user = new User({
     password : hash ,
     email : userBody.email,
     firstName : userBody.firstName,
@@ -22,12 +22,9 @@ const createUser = async (userBody) => {
 
 
 
-  user.save(user).then(data => {
-      res.send(data)
-  })
-  .catch(err => {
-    throw new ApiError(httpStatus[500], 'Error : User not created');
-  });
+  user.save(user)
+
+  return user;
 };
 
 
@@ -51,7 +48,7 @@ const queryUsers = async (filter, options) => {
  * @returns {Promise<User>}
  */
 const getUserById = async (id) => {
-  return User.findById(id);
+  return User.findOne({ where: { id: id } });
 };
 
 /**
@@ -60,7 +57,7 @@ const getUserById = async (id) => {
  * @returns {Promise<User>}
  */
 const getUserByEmail = async (email) => {
-  return User.findOne({ email });
+  return User.findOne({ where: { email: email } });
 };
 
 /**
@@ -77,8 +74,10 @@ const updateUserById = async (userId, updateBody) => {
   if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
-  Object.assign(user, updateBody);
-  await user.save();
+  await user.update(
+    updateBody,
+    { where: { _id: userId } }
+  )
   return user;
 };
 

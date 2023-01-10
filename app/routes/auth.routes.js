@@ -1,7 +1,9 @@
 /***********************************/
 /*** Import des module nécessaires */
 const express = require('express')
+const validate = require('../middlewares/validate');
 const authCtrl = require('../controllers/auth.controller')
+const authValidation = require('../validations/auth.validation');
 
 /***************************************/
 /*** Récupération du routeur d'express */
@@ -15,7 +17,14 @@ router.use( (req, res, next) => {
     next()
 });
 
-/**********************************/
+// AJOUTER MIDDLEWARE A TOUS !!!!!!!!!!!!!!!!!!!!!!
+
+router.post('/forgot-password', validate(authValidation.forgotPassword), authCtrl.forgotPassword);
+router.post('/reset-password', validate(authValidation.resetPassword), authCtrl.resetPassword);
+router.post('/send-verification-email', authCtrl.sendVerificationEmail);
+router.post('/verify-email', validate(authValidation.verifyEmail), authCtrl.verifyEmail);
+
+/*********************************
 /*** Routage de la ressource Auth */
 
 router.put('/login', authCtrl.login);

@@ -4,6 +4,7 @@ const userRoute = require('./user.routes');
 const restaurantsRoute = require('./restaurants.route');
 const restaurantRoute = require('./restaurant.route');
 const clientRoute = require('./client.route');
+const deliveryRoute = require('./delivery.route');
 
 
 const router = express.Router();
@@ -34,6 +35,10 @@ const defaultRoutes = [
   {
     path: '/client',
     route: clientRoute,
+  },
+  {
+    path: '/delivery',
+    route: deliveryRoute,
   }
 
 ];

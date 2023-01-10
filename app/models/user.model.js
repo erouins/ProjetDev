@@ -17,6 +17,10 @@ const User = db.define("User", {
   accountType: {
     type: Sequelize.STRING
   },
+  isEmailVerified: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false 
+  },
 },);
 
 User.sync();

@@ -52,6 +52,28 @@ const login = catchAsync(async (req, res) => {
     await authService.verifyEmail(req.query.token);
     res.status(httpStatus.NO_CONTENT).send();
   });
+
+  const findById = catchAsync(async (req, res) => {
+    const accountType = req.body.accountType
+    const userId = req.body.userId
+    let user;
+
+    if (accountType == "client"){
+       user = await clientService.getClientProfil(userId)
+    }
+    else if (accountType == "restaurant"){
+       user = await restaurantService.getRestaurantProfil(userId)
+    }
+    else if (accountType == "delivery"){
+       user = await deliveryService.getDeliveryProfilbyId(userId)
+    }
+    if (user != null){
+      res.status(httpStatus.OK).send("true");
+    }else{
+      res.status(httpStatus.NOT_FOUND).send("false");
+    }
+  
+  });
   
 
 module.exports = {
@@ -60,5 +82,6 @@ module.exports = {
     forgotPassword,
     resetPassword,
     sendVerificationEmail,
-    verifyEmail
+    verifyEmail,
+    findById
 }

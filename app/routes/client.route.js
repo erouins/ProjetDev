@@ -1,5 +1,6 @@
 // const auth = require('../middlewares/auth');
 const express = require('express');
+const auth = require('../middlewares/auth');
 const validate = require('../middlewares/validate');
 const clientController = require('../controllers/client.controller');
 const userController = require('../controllers/user.controller');
@@ -15,19 +16,19 @@ const clientValidation = require('../validations/client.validation');
 const router = express.Router();
 
 router.route('/create')
-    .post(validate(clientValidation.createClientProfil), clientController.create);
+    .post(auth(), validate(clientValidation.createClientProfil), clientController.create);
 
 router.route('/:clientId/orders')
-    .get(validate(clientValidation.getClientOrders), clientController.getClientOrders);
+    .get(auth(), validate(clientValidation.getClientOrders), clientController.getClientOrders);
 
 router.route('/:clientId/create-order')
-    .post(validate(clientValidation.createClientOrder), clientController.createOrder);
+    .post(auth(), validate(clientValidation.createClientOrder), clientController.createOrder);
 
 router.route('/:clientId/update-profil')
-    .put(validate(clientValidation.updateClientProfil), clientController.updateClientProfil);
+    .put(auth(), validate(clientValidation.updateClientProfil), clientController.updateClientProfil);
 
 router.route('/:clientId/update-order')
-    .put(validate(clientValidation.updateOrder), userController.updateOrder);
+    .put(auth(), validate(clientValidation.updateOrder), userController.updateOrder);
 
 // router.route('/:clientId/create-checkout-session').post(auth(), clientController.createCheckoutSession);
 

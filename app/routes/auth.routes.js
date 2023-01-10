@@ -1,6 +1,7 @@
 /***********************************/
 /*** Import des module nécessaires */
 const express = require('express')
+const auth = require('../middlewares/auth');
 const validate = require('../middlewares/validate');
 const authCtrl = require('../controllers/auth.controller')
 const authValidation = require('../validations/auth.validation');
@@ -21,7 +22,7 @@ router.use( (req, res, next) => {
 
 router.post('/forgot-password', validate(authValidation.forgotPassword), authCtrl.forgotPassword);
 router.post('/reset-password', validate(authValidation.resetPassword), authCtrl.resetPassword);
-router.post('/send-verification-email', authCtrl.sendVerificationEmail);
+router.post( '/send-verification-email', auth(),authCtrl.sendVerificationEmail);
 router.post('/verify-email', validate(authValidation.verifyEmail), authCtrl.verifyEmail);
 
 /*********************************

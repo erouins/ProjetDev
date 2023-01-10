@@ -17,25 +17,25 @@ router.route('/:restaurantId')
     .get(auth(), restaurantController.getRestaurantsById)
 
 router.route('/:restaurantId/article/create')
-    .post( validate(restaurantValidation.createArticle), restaurantController.createArticle)
+    .post(auth(),  validate(restaurantValidation.createArticle), restaurantController.createArticle)
 
 router.route('/:restaurantId/menu/create')
-    .post( validate(restaurantValidation.createMenu), restaurantController.createMenu)
+    .post(auth(),  validate(restaurantValidation.createMenu), restaurantController.createMenu)
 
 router.route('/:restaurantId/menu/delete')
-    .delete(restaurantController.deleteMenuById)
+    .delete(auth(), restaurantController.deleteMenuById)
 
 router.route('/:restaurantId/article/delete')
-    .delete( restaurantController.deleteArticleById)
+    .delete( auth(), restaurantController.deleteArticleById)
 
 router.route('/:restaurantId/article/update')
-    .put(  validate(restaurantValidation.updateArticleById), restaurantController.updateArticleById)
+    .put( auth(),  validate(restaurantValidation.updateArticleById), restaurantController.updateArticleById)
 
 router.route('/:restaurantId/menu/update')
-    .put( validate(restaurantValidation.updateMenuById), restaurantController.updateMenuById)
+    .put(auth(),  validate(restaurantValidation.updateMenuById), restaurantController.updateMenuById)
 
 router.route('/:restaurantId/update-order')
-    .put( validate(restaurantValidation.updateRestaurantOrder), userController.updateOrder)
+    .put(auth(),  validate(restaurantValidation.updateRestaurantOrder), userController.updateOrder)
 
 
 

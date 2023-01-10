@@ -16,7 +16,11 @@ const createClientProfil = async (userId, profil) => {
 };
 
 const getClientProfil = async (userId) => {
-    return Client.findOne({ client: userId });
+    return Client.findOne({ user: userId });
+};
+
+const getClientById = async (userId) => {
+    return Client.findById(userId);
 };
 
 const updateClientProfil = async (userId, profil) => {
@@ -52,5 +56,6 @@ module.exports = {
     updateClientProfil,
     createClientOrder,
     getOrderById,
-    markOrderAsPaid
+    markOrderAsPaid,
+    getClientById
 };

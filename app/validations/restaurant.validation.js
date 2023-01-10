@@ -15,7 +15,7 @@ const createArticle = {
             image: Joi.string().required(),
             price: Joi.number().required(),
         }),
-        userId: Joi.string().custom(objectId),
+        userId: Joi.number().required(),
     })
 }
 
@@ -28,7 +28,7 @@ const createMenu = {
             image: Joi.string().required(),
             price: Joi.number().required(),
         }),
-        userId: Joi.string().custom(objectId).required(),
+        userId: Joi.number().required(),
     })
 }
 
@@ -60,7 +60,7 @@ const updateMenuById = {
 
 const createRestaurant = {
     body: Joi.object().keys({
-        user: Joi.string().custom(objectId),
+        user: Joi.number().required(),
         address: Joi.string().required(),
         city: Joi.string().required(),
         zipCode: Joi.string().required(),

@@ -8,7 +8,7 @@ const { string, required } = require('joi');
 const restaurantSchema = mongoose.Schema(
   {
     user: {
-      type: mongoose.SchemaTypes.ObjectId,
+      type: Number,
      
       required: true,
     },

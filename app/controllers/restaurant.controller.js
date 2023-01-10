@@ -16,8 +16,12 @@ const getRestaurants = catchAsync(async (req, res) => {
 
 const getRestaurantsById = catchAsync(async (req, res) => {
     const restaurant = await restaurantService.getRestaurantProfilById(req.params.restaurantId);
-    console.log(restaurant)
-    res.status(httpStatus.OK).send(restaurant);
+    if (restaurant != null){
+        res.status(httpStatus.OK).send(restaurant);
+    }else{
+        res.status(httpStatus.NOT_FOUND).send({error: "restaurant don't exists"});
+    }
+    
 });
 
 const createArticle = catchAsync(async (req, res) => {
@@ -36,7 +40,7 @@ const createArticle = catchAsync(async (req, res) => {
     restaurant.save();
 
     const restaurantProfil = restaurantService.getRestaurantProfil(userId);
-    res.status(httpStatus.CREATED).send(restaurantProfil);
+    res.status(httpStatus.CREATED).send(article);
 
 })
 
@@ -61,7 +65,7 @@ const createMenu = catchAsync(async (req, res) => {
     restaurant.menus.push(menu);
     restaurant.save();
 
-    res.status(httpStatus.CREATED).send(menu._id);
+    res.status(httpStatus.CREATED).send(menu);
 
 })
 

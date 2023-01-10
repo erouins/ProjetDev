@@ -11,7 +11,8 @@ let router = express.Router();
 /*** Routage de la ressource User */
 
 router.post("/new", authController.register);
-// router.get("/:id", authController.findById);
+
+router.get("/find", authController.findById);
 
 router
     .use((req, res) => {

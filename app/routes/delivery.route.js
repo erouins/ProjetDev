@@ -10,22 +10,22 @@ const deliveryValidation = require('../validations/delivery.validation');
 const router = express.Router();
 
 router.route('/create')
-    .post(validate(deliveryValidation.createDeliveryProfil), deliveryController.create);
+    .post(auth(), validate(deliveryValidation.createDeliveryProfil), deliveryController.create);
 
 router.route('/pending')
-    .get(deliveryController.getPendingOrders);
+    .get(auth(), deliveryController.getPendingOrders);
 
 router.route('/:deliveryId/orders')
-    .get(deliveryController.getDeliveryOrders);
+    .get(auth(), deliveryController.getDeliveryOrders);
 
 router.route('/:deliveryId/update-profil')
-    .put(validate(deliveryValidation.updateDeliveryProfil), deliveryController.updateDeliveryProfil);
+    .put(auth(), validate(deliveryValidation.updateDeliveryProfil), deliveryController.updateDeliveryProfil);
 
 router.route('/:deliveryId')
-    .get(deliveryController.getDeliveryProfil);
+    .get(auth(), deliveryController.getDeliveryProfil);
 
 router.route('/:deliveryId/update-order')
-    .put(validate(deliveryValidation.updateDeliveryOrder), userController.updateOrder);
+    .put(auth(), validate(deliveryValidation.updateDeliveryOrder), userController.updateOrder);
 
 
 

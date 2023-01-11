@@ -2,14 +2,14 @@ const Joi = require('joi');
 const { password } = require('./custom.validation');
 
 const clientProfil = Joi.object().keys({
-  name: Joi.string().required(),
+  lastName: Joi.string().required(),
   firstName: Joi.string().required(),
   address: Joi.string().required(),
   image: Joi.string().allow(null, ""),
 });
 
 const deliveryProfil = Joi.object().keys({
-  name: Joi.string().required(),
+  lastName: Joi.string().required(),
   firstName: Joi.string().required(),
   address: Joi.string().required(),
   image: Joi.string().allow(null, ""),

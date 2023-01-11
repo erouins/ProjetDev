@@ -5,7 +5,7 @@ const { objectId } = require('./custom.validation');
 const createClientProfil = {
   body : Joi.object().keys({
             profil: Joi.object().keys({
-                lastname: Joi.string().required(),
+                lastName: Joi.string().required(),
                 firstName: Joi.string().required(),
                 address: Joi.string().required(),
                 image: Joi.string().allow(null, ""),

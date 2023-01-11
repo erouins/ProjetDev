@@ -64,7 +64,7 @@ const login = catchAsync(async (req, res) => {
     else if (accountType == "restaurant"){
        user = await restaurantService.getRestaurantProfil(userId)
     }
-    else if (accountType == "delivery"){
+    else if (accountType == "deliverer"){
        user = await deliveryService.getDeliveryProfilbyId(userId)
     }
     if (user != null){

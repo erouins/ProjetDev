@@ -32,7 +32,7 @@ const defaultRoutes = [
     route: clientRoute,
   },
   {
-    path: '/delivery',
+    path: '/deliverer',
     route: deliveryRoute,
   }
 

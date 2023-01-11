@@ -68,7 +68,8 @@ const login = catchAsync(async (req, res) => {
        user = await deliveryService.getDeliveryProfilbyId(userId)
     }
     if (user != null){
-      res.status(httpStatus.OK).send({'response':'true'});
+      console.log(user._id)
+      res.status(httpStatus.OK).send({'response':'true', 'id' : user._id});
     }else{
       res.status(httpStatus.NOT_FOUND).send({'response':'false'});
     }

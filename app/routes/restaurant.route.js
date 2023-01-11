@@ -12,6 +12,11 @@ const router = express.Router();
 
 // router.route('/:restaurantId/orders')
 //     .get(auth(), validate(restaurantValidation.getRestaurantOrders), restaurantController.getRestaurantOrders)
+router.route('/create')
+    .post(auth(), validate(restaurantValidation.createRestaurant), restaurantController.create);
+
+    router.route('/')
+    .get(auth(), restaurantController.getRestaurants);
 
 router.route('/:restaurantId')
     .get(auth(), restaurantController.getRestaurantsById)

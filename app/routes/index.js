@@ -1,7 +1,6 @@
 const express = require('express');
 const authRoute = require('./auth.routes');
 const userRoute = require('./user.routes');
-const restaurantsRoute = require('./restaurants.route');
 const restaurantRoute = require('./restaurant.route');
 const clientRoute = require('./client.route');
 const deliveryRoute = require('./delivery.route');
@@ -27,10 +26,6 @@ const defaultRoutes = [
   {
     path: '/restaurant',
     route: restaurantRoute,
-  },
-    {
-    path: '/restaurants',
-    route: restaurantsRoute,
   },
   {
     path: '/client',

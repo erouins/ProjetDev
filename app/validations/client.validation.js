@@ -17,7 +17,7 @@ const createClientProfil = {
 const updateClientProfil = {
   body : Joi.object().keys({
             profil: Joi.object().keys({
-                name: Joi.string(),
+              lastName: Joi.string(),
                 firstName: Joi.string(),
                 address: Joi.string(),
                 image: Joi.string().allow(null, ""),

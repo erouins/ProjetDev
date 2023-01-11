@@ -15,7 +15,7 @@ const router = express.Router();
 router.route('/create')
     .post(auth(), validate(restaurantValidation.createRestaurant), restaurantController.create);
 
-    router.route('/')
+router.route('/')
     .get(auth(), restaurantController.getRestaurants);
 
 router.route('/:restaurantId')

@@ -10,10 +10,16 @@ const mongoose = require('mongoose');
  * @returns {Promise<Restaurant>}
  */
 const createRestaurantProfil = async (restaurantBody) => {
-  if (await Restaurant.isEmailTaken(restaurantBody.name)) {
+  if (await Restaurant.isEmailTaken(restaurantBody.profil.name)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
-  return Restaurant.create(restaurantBody);
+  profil = restaurantBody.profil;
+  userId = restaurantBody.userId
+  const restaurant = {
+    ...profil,
+    user: userId,
+};
+  return Restaurant.create(restaurant);
 };
 
 const getMenuById = async (menuId) => {

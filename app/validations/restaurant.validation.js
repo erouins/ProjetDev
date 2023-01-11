@@ -60,15 +60,19 @@ const updateMenuById = {
 
 const createRestaurant = {
     body: Joi.object().keys({
-        user: Joi.number().required(),
-        address: Joi.string().required(),
-        city: Joi.string().required(),
-        zipCode: Joi.string().required(),
-        name: Joi.string().required(),
-        description: Joi.string().required(),
-        image: Joi.string().allow(null, ""),
-      })
+        profil: Joi.object().keys({
+            address: Joi.string().required(),
+            city: Joi.string().required(),
+            zipCode: Joi.string().required(),
+            name: Joi.string().required(),
+            description: Joi.string().required(),
+            image: Joi.string().allow(null, ""),
+        }),
+        userId: Joi.number().required()
+    })
 }
+
+
 
 const updateRestaurantOrder = {
     body : Joi.object().keys({

@@ -21,6 +21,10 @@ const updateOrder =  catchAsync(async (req, res) => {
         logger.info("Le restaurant accepte la commande");
         deliveryService.restaurantAcceptOrder(orderId);
         break;
+      case 'restaurantRejected':
+        logger.info("Le restaurant accepte la commande");
+        deliveryService.restaurantRejectOrder(orderId);
+        break;
       case 'take-from-restaurant':
         deliveryService.takeFromRestaurant(orderId);
         break;

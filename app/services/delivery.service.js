@@ -42,6 +42,13 @@ const restaurantAcceptOrder = async (orderId) => {
     order.status = 'restaurantAccepted';
     order.save();
     return;
+}
+
+const restaurantRejectOrder = async (orderId) => {
+    const order = await Order.findById(orderId);
+    order.status = 'rejected';
+    order.save();
+    return;
 
 }
 
@@ -70,6 +77,7 @@ const markOrderAsDone = async (orderId) => {
 
 module.exports = {
     createDeliveryProfil,
+    restaurantRejectOrder,
     getDeliveryProfil,
     getDeliveryProfilbyId,
     getDeliveryOrders,

@@ -4,10 +4,10 @@ const { restaurantService } = require('../services');
 const logger = require('../config/logger');
 const { createRestaurantProfil } = require('../services/restaurant.service');
 
-// const getRestaurantOrders = catchAsync(async (req, res) => {
-//     const orders = await restaurantService.getRestaurantOrders(req.params.restaurantId);
-//     res.status(httpStatus.OK).send(orders);
-// });
+const getRestaurantOrders = catchAsync(async (req, res) => {
+    const orders = await restaurantService.getRestaurantOrders(req.params.restaurantId);
+    res.status(httpStatus.OK).send(orders);
+});
 
 const getRestaurants = catchAsync(async (req, res) => {
     const restaurants = await restaurantService.getRestaurants();
@@ -119,8 +119,10 @@ const updateMenuById = catchAsync(async (req, res) => {
 })
 
 
+
+
 module.exports = {
-    // getRestaurantOrders,
+    getRestaurantOrders,
     getRestaurants,
     getRestaurantsById,
     updateRestaurantProfile,

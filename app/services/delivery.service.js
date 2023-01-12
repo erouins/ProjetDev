@@ -29,11 +29,12 @@ const updateDeliveryProfil = async (userId, profil) => {
 }
 
 const getDeliveryOrders = async (deliveryId) => {
-    return Order.find({ delivery: deliveryId }).populate('client');
+    const order = Order.findOne({ delivery: deliveryId, status: 'accepted' }).populate('client').populate('restaurant');
+    return order;
 };
 
 const getPendingOrders = async () => {
-    return Order.find({ status: 'restaurantAccepted', isPayed: true }).populate('client');
+    return Order.find({ status: 'restaurantAccepted', isPayed: true }).populate('client').populate('restaurant');
 }
 
 const restaurantAcceptOrder = async (orderId) => {

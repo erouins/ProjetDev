@@ -27,7 +27,7 @@ const updateClientProfil = catchAsync(async (req, res) => {
 });
 
 const getClientProfil = catchAsync(async (req, res) => {
-    const client = await clientService.getClientProfil(req.params.clientId);
+    const client = await clientService.getClientById(req.params.clientId);
     res.status(httpStatus.OK).send(client);
 });
 

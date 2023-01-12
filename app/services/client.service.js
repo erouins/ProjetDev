@@ -20,11 +20,11 @@ const getClientProfil = async (userId) => {
 };
 
 const getClientById = async (userId) => {
-    return Client.findById(userId);
+    return Client.findById( userId);
 };
 
 const updateClientProfil = async (userId, profil) => {
-    const client = await Client.findOneAndUpdate({ client: userId }, profil, { new: true });
+    const client = await Client.findOneAndUpdate({ _id: userId }, profil, { new: true });
     return client;
 };
 

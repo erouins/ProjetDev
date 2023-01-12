@@ -22,6 +22,11 @@ const createRestaurantProfil = async (restaurantBody) => {
   return Restaurant.create(restaurant);
 };
 
+const updateRestaurantProfile = async (userId, profil) => {
+  const restaurant = await Restaurant.findOneAndUpdate({ _id: userId }, profil, { new: true });
+  return restaurant;
+};
+
 const getMenuById = async (menuId) => {
   logger.debug("[ ] [SERVICE]  Get menu by Id: " + menuId)
   return Menu.findById(menuId);
@@ -118,6 +123,7 @@ module.exports = {
   createRestaurantProfil,
   getRestaurantProfil,
   getRestaurantProfilById,
+  updateRestaurantProfile,
   // getRestaurantOrders,
   getRestaurants,
   createArticle,

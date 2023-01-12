@@ -18,6 +18,9 @@ const router = express.Router();
 router.route('/create')
     .post(auth(), validate(clientValidation.createClientProfil), clientController.create);
 
+router.route('/:clientId')
+    .get(auth(), clientController.getClientProfil);
+
 router.route('/:clientId/orders')
     .get(auth(), validate(clientValidation.getClientOrders), clientController.getClientOrders);
 

@@ -24,6 +24,12 @@ const getRestaurantsById = catchAsync(async (req, res) => {
     
 });
 
+const updateRestaurantProfile = catchAsync(async (req, res) => {
+    const restaurantId = req.params.restaurantId
+    const profil = await restaurantService.updateRestaurantProfile(restaurantId, req.body.profil);
+    res.status(httpStatus.CREATED).send(profil);  
+});
+
 const createArticle = catchAsync(async (req, res) => {
     logger.debug("[ ] [CONTROLLER] Create Article...")
 
@@ -117,6 +123,7 @@ module.exports = {
     // getRestaurantOrders,
     getRestaurants,
     getRestaurantsById,
+    updateRestaurantProfile,
     createArticle,
     deleteMenuById,
     createMenu,

@@ -21,6 +21,9 @@ router.route('/')
 router.route('/:restaurantId')
     .get(auth(), restaurantController.getRestaurantsById)
 
+router.route('/:restaurantId/update')
+    .post(auth(),  validate(restaurantValidation.updateProfile), restaurantController.updateRestaurantProfile)
+
 router.route('/:restaurantId/article/create')
     .post(auth(),  validate(restaurantValidation.createArticle), restaurantController.createArticle)
 

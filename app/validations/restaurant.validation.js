@@ -72,6 +72,18 @@ const createRestaurant = {
     })
 }
 
+const updateProfile = {
+    body: Joi.object().keys({
+        profil: Joi.object().keys({
+            address: Joi.string(),
+            city: Joi.string(),
+            zipCode: Joi.string(),
+            name: Joi.string(),
+            description: Joi.string(),
+            image: Joi.string().allow(null, ""),
+        }),
+    })
+}
 
 
 const updateRestaurantOrder = {
@@ -92,6 +104,7 @@ module.exports = {
     createArticle,
     updateMenuById,
     updateArticleById,
+    updateProfile,
     createMenu,
     createRestaurant,
     updateRestaurantOrder

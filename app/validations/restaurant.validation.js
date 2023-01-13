@@ -41,6 +41,7 @@ const updateArticleById = {
             image: Joi.string(),
             price: Joi.number(),
         }),
+        userId: Joi.number().required(),
     })
 }
 
@@ -54,7 +55,7 @@ const updateMenuById = {
             image: Joi.string(),
             price: Joi.number(),
         }),
-        userId: Joi.string().custom(objectId),
+        userId: Joi.number().required(),
     })
 }
 

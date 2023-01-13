@@ -29,16 +29,24 @@ const updateDeliveryProfil = async (userId, profil) => {
 }
 
 const getDeliveryOrders = async (deliveryId) => {
-    return Order.find({ delivery: deliveryId }).populate('client');
+    const order = Order.findOne({ delivery: deliveryId, status: 'accepted' }).populate('client').populate('restaurant');
+    return order;
 };
 
 const getPendingOrders = async () => {
-    return Order.find({ status: 'restaurantAccepted', isPayed: true }).populate('client');
+    return Order.find({ status: 'restaurantAccepted', isPayed: true }).populate('client').populate('restaurant');
 }
 
 const restaurantAcceptOrder = async (orderId) => {
     const order = await Order.findById(orderId);
     order.status = 'restaurantAccepted';
+    order.save();
+    return;
+}
+
+const restaurantRejectOrder = async (orderId) => {
+    const order = await Order.findById(orderId);
+    order.status = 'rejected';
     order.save();
     return;
 
@@ -69,6 +77,7 @@ const markOrderAsDone = async (orderId) => {
 
 module.exports = {
     createDeliveryProfil,
+    restaurantRejectOrder,
     getDeliveryProfil,
     getDeliveryProfilbyId,
     getDeliveryOrders,

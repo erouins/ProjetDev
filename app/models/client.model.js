@@ -25,6 +25,15 @@ const clientSchema = mongoose.Schema(
             required: true,
             trim: true,
         },
+        zipCode: {
+            type: String,
+            required: true,
+            trim: true,
+          },
+          city: {
+            type: String,
+            required: true,
+          },
         image: {
             type: String,
             required: false,

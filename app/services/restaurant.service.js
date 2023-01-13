@@ -1,5 +1,5 @@
 const logger = require('../config/logger');
-const { Restaurant, Article, Menu } = require('../models');
+const { Restaurant, Article, Menu, Order } = require('../models');
 const ApiError = require('../utils/ApiError');
 const httpStatus = require('http-status');
 const mongoose = require('mongoose');
@@ -74,7 +74,7 @@ const updateMenu = async (restaurantId, menuFields) => {
 };
 
 const getRestaurantOrders = async (restaurantId) => {
-  return Order.find({ restaurant: restaurantId, isPayed: true }).populate('client');
+  return Order.find({ restaurant: restaurantId, isPayed: true }).populate('client').populate("menus").populate("articles");
 };
 
 const getRestaurants = async () => {
@@ -119,12 +119,13 @@ const deleteArticleById = async (articleId) => {
 };
 
 
+
 module.exports = {
   createRestaurantProfil,
   getRestaurantProfil,
   getRestaurantProfilById,
   updateRestaurantProfile,
-  // getRestaurantOrders,
+  getRestaurantOrders,
   getRestaurants,
   createArticle,
   createMenu,

@@ -9,6 +9,8 @@ const createClientProfil = {
                 firstName: Joi.string().required(),
                 address: Joi.string().required(),
                 image: Joi.string().allow(null, ""),
+                zipCode : Joi.number().required(),
+                city :  Joi.string().required(),
             }),
             userId: Joi.number().required()
         })
@@ -21,6 +23,8 @@ const updateClientProfil = {
                 firstName: Joi.string(),
                 address: Joi.string(),
                 image: Joi.string().allow(null, ""),
+                zipCode : Joi.number(),
+                city :  Joi.string()
             }),
         })
 }

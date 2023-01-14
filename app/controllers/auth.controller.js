@@ -33,6 +33,11 @@ const login = catchAsync(async (req, res) => {
     await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
     res.status(httpStatus.OK).send({  resetPasswordToken});
   });
+
+  const refreshTokens = catchAsync(async (req, res) => {
+    const tokens = await authService.refreshAuth(req.body.refreshToken);
+    res.send({ ...tokens });
+  });
   
   const resetPassword = catchAsync(async (req, res) => {
     await authService.resetPassword(req.query.token, req.body.password);
@@ -80,6 +85,7 @@ const login = catchAsync(async (req, res) => {
 module.exports = {
     login,
     register,
+    refreshTokens,
     forgotPassword,
     resetPassword,
     sendVerificationEmail,

@@ -16,22 +16,22 @@ const clientValidation = require('../validations/client.validation');
 const router = express.Router();
 
 router.route('/create')
-    .post(auth(), validate(clientValidation.createClientProfil), clientController.create);
+    .post(auth('client'), validate(clientValidation.createClientProfil), clientController.create);
 
 router.route('/:clientId')
     .get(auth(), clientController.getClientProfil);
 
 router.route('/:clientId/orders')
-    .get(auth(), validate(clientValidation.getClientOrders), clientController.getClientOrders);
+    .get(auth('client'), validate(clientValidation.getClientOrders), clientController.getClientOrders);
 
 router.route('/:clientId/create-order')
-    .post(auth(), validate(clientValidation.createClientOrder), clientController.createOrder);
+    .post(auth('client'), validate(clientValidation.createClientOrder), clientController.createOrder);
 
 router.route('/:clientId/update-profil')
-    .put(auth(), validate(clientValidation.updateClientProfil), clientController.updateClientProfil);
+    .put(auth('client'), validate(clientValidation.updateClientProfil), clientController.updateClientProfil);
 
 router.route('/:clientId/update-order')
-    .put(auth(), validate(clientValidation.updateOrder), userController.updateOrder);
+    .put(auth('client'), validate(clientValidation.updateOrder), userController.updateOrder);
 
 // router.route('/:clientId/create-checkout-session').post(auth(), clientController.createCheckoutSession);
 

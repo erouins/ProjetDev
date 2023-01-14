@@ -29,9 +29,8 @@ const updateClientProfil = async (userId, profil) => {
 };
 
 const getClientOrders = async (clientId) => {
-    return Order.find({ client: clientId}).populate(['restaurant', 'delivery']);
+    return Order.find({ client: clientId}).populate(['restaurant', 'delivery' , 'articles', 'menus']);
 };
-
 const createClientOrder = async (order) => {
     return Order.create(order);
 };

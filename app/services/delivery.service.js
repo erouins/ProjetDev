@@ -29,7 +29,7 @@ const updateDeliveryProfil = async (userId, profil) => {
 }
 
 const getDeliveryOrders = async (deliveryId) => {
-    const order = Order.findOne({ delivery: deliveryId, status: 'accepted' }).populate('client').populate('restaurant');
+    const order = Order.findOne({ delivery: deliveryId, $or: [ {status: 'accepted' },{status: 'deliver' } ] }).populate('client').populate('restaurant');
     return order;
 };
 

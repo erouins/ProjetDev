@@ -34,4 +34,5 @@ const tokenSchema = db.define("Token",
 
 tokenSchema.sync();
 
+
 module.exports = tokenSchema;

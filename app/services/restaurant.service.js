@@ -106,7 +106,7 @@ const deleteMenuById = async (menuId) => {
   }
   await menu.remove();
   return menu;
-};
+}
 
 const deleteArticleById = async (articleId) => {
   logger.debug("[ ] [SERVICE]  Delete article by Id: " + articleId)
@@ -116,7 +116,17 @@ const deleteArticleById = async (articleId) => {
   }
   await article.remove();
   return article;
-};
+}
+
+const deleteProfile = async (userId) => {
+  const profile = await Restaurant.findById( userId);
+  try {
+    profile.remove();
+  } catch (error) {
+    console.log('user is not restaurant')
+  }
+  return profile;
+}
 
 
 
@@ -133,5 +143,6 @@ module.exports = {
   getMenuById,
   deleteArticleById,
   updateArticle,
-  updateMenu
+  updateMenu,
+  deleteProfile
 };

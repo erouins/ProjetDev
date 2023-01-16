@@ -13,20 +13,20 @@ const createClientProfil = async (userId, profil) => {
         user: userId,
     };
     return Client.create(client);
-};
+}
 
 const getClientProfil = async (userId) => {
     return Client.findOne({ user: userId });
-};
+}
 
 const getClientById = async (userId) => {
     return Client.findById( userId);
-};
+}
 
 const updateClientProfil = async (userId, profil) => {
     const client = await Client.findOneAndUpdate({ _id: userId }, profil, { new: true });
     return client;
-};
+}
 
 const getClientOrders = async (clientId) => {
     return Order.find({ client: clientId}).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
@@ -35,10 +35,10 @@ const getClientOrders = async (clientId) => {
           path : 'articles'
         }
       })
-};
+}
 const createClientOrder = async (order) => {
     return Order.create(order);
-};
+}
 
 const getOrderById = async (orderId) => {
     return Order.findById(orderId).populate(["articles", "menus"]);
@@ -51,6 +51,16 @@ const markOrderAsPaid = async (orderId) => {
     return order;
 }
 
+const deleteProfile = async (userId) => {
+    const profile = await Client.findById( userId);
+    try {
+        profile.remove();  
+    } catch (error) {
+        console.log('user is not client')
+    }
+    return profile;
+}
+
 
 
 module.exports = {
@@ -61,5 +71,6 @@ module.exports = {
     createClientOrder,
     getOrderById,
     markOrderAsPaid,
-    getClientById
+    getClientById,
+    deleteProfile
 };

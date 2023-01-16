@@ -3,6 +3,7 @@ const { User, Order } = require('../models');
 const ApiError = require('../utils/ApiError');
 const logger = require('../config/logger');
 const bcrypt = require('bcryptjs');
+const { clientService, deliveryService, restaurantService } = require('.');
 
 
 const createUser = async (userBody, res) => {
@@ -97,9 +98,14 @@ const deleteUserById = async (userId) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  await user.remove();
+  await User.destroy({
+    where: {
+      id: user.id
+    }
+})
   return user;
 };
+
 
 const updateOrder = async (orderId, content) => {
     logger.debug("[ ] [SERVICE]  Attempt to UPDATE order: " + orderId);
@@ -121,5 +127,5 @@ module.exports = {
   getUserById,
   getUserByEmail,
   updateUserById,
-  deleteUserById,
+  deleteUserById
 };

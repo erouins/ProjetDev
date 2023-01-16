@@ -75,6 +75,21 @@ const markOrderAsDone = async (orderId) => {
     return;
 }
 
+const deleteProfile = async (userId) => {
+    console.log("usser" , userId)
+    const profile = await Delivery.findById(userId);
+    
+    try {
+        profile.remove();  
+    } catch (error) {
+        console.log('user is not deliver')
+    }
+    return profile;
+  }
+  
+
+
+
 module.exports = {
     createDeliveryProfil,
     restaurantRejectOrder,
@@ -86,5 +101,6 @@ module.exports = {
     takeFromRestaurant,
     markOrderAsDone,
     updateDeliveryProfil,
-    restaurantAcceptOrder
+    restaurantAcceptOrder,
+    deleteProfile
 };

@@ -28,6 +28,11 @@ const login = catchAsync(async (req, res) => {
     res.send({ user, tokens});
   });
 
+  const logout = catchAsync(async (req, res) => {
+    await authService.logout(req.body.refreshToken);
+    res.status(httpStatus.NO_CONTENT).send();
+  });
+
   const forgotPassword = catchAsync(async (req, res) => {
     const resetPasswordToken = await tokenService.generateResetPasswordToken(req.body.email);
     await emailService.sendResetPasswordEmail(req.body.email, resetPasswordToken);
@@ -74,7 +79,7 @@ const login = catchAsync(async (req, res) => {
     }
     if (user != null){
       console.log(user._id)
-      res.status(httpStatus.OK).send({'response':'true', 'id' : user._id});
+      res.status(httpStatus.OK).send({'response':'true', 'id' : user._id, 'email' : user.email, 'isEmailVerified' : user.isEmailVerified});
     }else{
       res.status(httpStatus.NOT_FOUND).send({'response':'false'});
     }
@@ -90,5 +95,6 @@ module.exports = {
     resetPassword,
     sendVerificationEmail,
     verifyEmail,
-    findById
+    findById,
+    logout
 }

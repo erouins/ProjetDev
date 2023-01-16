@@ -23,8 +23,9 @@ router.use( (req, res, next) => {
 router.post('/forgot-password', validate(authValidation.forgotPassword), authCtrl.forgotPassword);
 router.post('/reset-password', validate(authValidation.resetPassword), authCtrl.resetPassword);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authCtrl.refreshTokens);
-router.post( '/send-verification-email', auth(),authCtrl.sendVerificationEmail);
+router.post( '/send-verification-email',authCtrl.sendVerificationEmail);
 router.post('/verify-email', validate(authValidation.verifyEmail), authCtrl.verifyEmail);
+router.post('/logout', validate(authValidation.logout), authCtrl.logout);
 
 /*********************************
 /*** Routage de la ressource Auth */

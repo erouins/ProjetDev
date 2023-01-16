@@ -41,10 +41,41 @@ const updateOrder =  catchAsync(async (req, res) => {
         throw new ApiError(httpStatus.NOT_FOUND, 'Problem orders');
     }
     res.status(httpStatus.OK).send(action);
-  })
+  });
+
+
+  const findById =  catchAsync(async (req, res) => {
+    const users = await userService.getUserById(req.params.userId);
+    res.status(httpStatus.OK).send(users);
+
+  });
+
+  const deleteUser =  catchAsync(async (req, res) => {
+
+    let user = await clientService.deleteProfile(req.params.userId)
+    if (user != null){
+      userService.deleteUserById(user.user)
+      res.status(httpStatus.OK).send(user);      
+    }else{
+       user = await restaurantService.deleteProfile(req.params.userId)
+      if (user != null){
+        userService.deleteUserById(user.user)
+        res.status(httpStatus.OK).send(user);    
+      }else{
+         user = await deliveryService.deleteProfile(req.params.userId)
+         userService.deleteUserById(user.user)
+         res.status(httpStatus.OK).send(user); 
+      }
+    }
+
+   
+
+  });
   
 
 
 module.exports = {
-    updateOrder
+    updateOrder,
+    findById,
+    deleteUser
 }

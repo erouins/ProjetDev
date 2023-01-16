@@ -29,7 +29,12 @@ const updateClientProfil = async (userId, profil) => {
 };
 
 const getClientOrders = async (clientId) => {
-    return Order.find({ client: clientId}).populate(['restaurant', 'delivery' , 'articles', 'menus']);
+    return Order.find({ client: clientId}).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
+        path : 'menus',
+        populate : {
+          path : 'articles'
+        }
+      })
 };
 const createClientOrder = async (order) => {
     return Order.create(order);

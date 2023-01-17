@@ -21,6 +21,9 @@ router.route('/create')
 router.route('/:clientId')
     .get(auth(), clientController.getClientProfil);
 
+router.route('/:clientId/historical')
+    .get(auth(), validate(clientValidation.getClientOrders), clientController.getClientHistorical);
+
 router.route('/:clientId/orders')
     .get(auth('client'), validate(clientValidation.getClientOrders), clientController.getClientOrders);
 

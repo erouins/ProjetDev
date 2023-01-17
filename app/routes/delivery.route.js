@@ -15,6 +15,9 @@ router.route('/create')
 router.route('/pending')
     .get(auth('deliverer'), deliveryController.getPendingOrders);
 
+router.route('/:deliveryId/historical')
+    .get(auth('deliverer'), deliveryController.getDeliveryHistorical);
+
 router.route('/:deliveryId/orders')
     .get(auth('deliverer'), deliveryController.getDeliveryOrders);
 

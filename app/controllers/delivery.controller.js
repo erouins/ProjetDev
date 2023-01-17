@@ -31,6 +31,11 @@ const getPendingOrders = catchAsync(async (req, res) => {
     res.status(httpStatus.OK).send(orders);
 });
 
+const getDeliveryHistorical = catchAsync(async (req, res) => {
+    const orders = await deliveryService.getDeliveryHistorical(req.params.deliveryId);
+    res.status(httpStatus.OK).send(orders);
+});
+
 const getDeliveryOrders = catchAsync(async (req, res) => {
     const orders = await deliveryService.getDeliveryOrders(req.params.deliveryId);
     if (orders != null){
@@ -47,6 +52,7 @@ const getDeliveryOrders = catchAsync(async (req, res) => {
 module.exports = {
     create,
     updateDeliveryProfil,
+    getDeliveryHistorical,
     getDeliveryProfil,
     getPendingOrders,
     getDeliveryOrders

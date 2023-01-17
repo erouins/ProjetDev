@@ -9,6 +9,11 @@ const getRestaurantOrders = catchAsync(async (req, res) => {
     res.status(httpStatus.OK).send(orders);
 });
 
+const getRestaurantHistorical = catchAsync(async (req, res) => {
+    const orders = await restaurantService.getRestaurantHistorical(req.params.restaurantId);
+    res.status(httpStatus.OK).send(orders);
+});
+
 const getRestaurants = catchAsync(async (req, res) => {
     const restaurants = await restaurantService.getRestaurants();
     res.status(httpStatus.OK).send(restaurants);
@@ -86,6 +91,14 @@ const deleteMenuById = catchAsync(async (req, res) => {
     res.status(httpStatus.OK).send(restaurantProfil);
 })
 
+const deleteOrderById =  catchAsync(async (req, res) => {
+    const orderId = req.params.orderId;
+    console.log('iid: ', req.params)
+    logger.debug("[ ] [CONTROLLER]  Delete menu by Id: " + orderId);
+    await restaurantService.deleteOrderById(req.params.orderId);
+    res.status(httpStatus.OK)
+})
+
 const deleteArticleById = catchAsync(async (req, res) => {
     const articleId = req.body.articleId;
     logger.debug("[ ] [CONTROLLER]  Delete article by Id: " + articleId)
@@ -123,11 +136,13 @@ const updateMenuById = catchAsync(async (req, res) => {
 
 module.exports = {
     getRestaurantOrders,
+    getRestaurantHistorical,
     getRestaurants,
     getRestaurantsById,
     updateRestaurantProfile,
     createArticle,
     deleteMenuById,
+    deleteOrderById,
     createMenu,
     deleteArticleById,
     updateArticleById,

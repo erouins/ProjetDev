@@ -7,7 +7,7 @@ const compair = require('./compairAlgo.ts');
 const passport = require('passport');
 const routes = require('./app/routes');
 const { jwtStrategy } = require('./app/config/passport');
-
+const i = require('socket.io')
 
 
 /*************************************************/ 
@@ -76,7 +76,8 @@ mongodb.mongoose.connect(mongodb.url, {
     const serverr = app.listen(process.env.API_PORT || dotenv.API_PORT, () => {
       console.log('Server app listening on port ' + process.env.API_PORT || dotenv.API_PORT)
     });
-    io = require('socket.io')(serverr);
+    io = new i({serverr});
+    console.log("io", io)
 
     io.on('connection', (socket) => {
       socket.emit("welcome");

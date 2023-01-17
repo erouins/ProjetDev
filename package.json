@@ -26,6 +26,8 @@
         "passport": "^0.6.0",
         "passport-jwt": "^4.0.1",
         "sequelize": "^6.28.0",
+        "socket.io": "^4.5.4",
+        "soket.io": "^0.0.1-security",
         "tedious": "^15.1.2",
         "winston": "^3.8.2"
     },

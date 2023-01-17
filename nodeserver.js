@@ -7,6 +7,9 @@ const compair = require('./compairAlgo.ts');
 const passport = require('passport');
 const routes = require('./app/routes');
 const { jwtStrategy } = require('./app/config/passport');
+
+
+
 /*************************************************/ 
 /*** Initialisation des variabls d'environnement */
 const dotenv = require('dotenv').config();
@@ -15,8 +18,9 @@ const dotenv = require('dotenv').config();
 /*** Import de la connexion à la DB */
 const mongodb = require("./db.config.js");
 const sqlserverdb = require("./sqldb.config.js");
-//compair.compair();
 
+
+//compair.compair();
 
 
 /****************************************************/ 
@@ -53,6 +57,8 @@ app.use(bodyParser.urlencoded({
 app.use(routes);
 
 
+let io;
+
 /********************************/
 /*** Start serveur avec test DB */
 
@@ -67,14 +73,22 @@ mongodb.mongoose.connect(mongodb.url, {
   })
   .then(async () => {
     console.log("Connected to the database!");
-    app.listen(process.env.API_PORT || dotenv.API_PORT, () => {
+    const serverr = app.listen(process.env.API_PORT || dotenv.API_PORT, () => {
       console.log('Server app listening on port ' + process.env.API_PORT || dotenv.API_PORT)
+    });
+    io = require('socket.io')(serverr);
+
+    io.on('connection', (socket) => {
+      socket.emit("welcome");
+      console.log('connected socket')
     });
   })
   .catch(err => {
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
+
+  module.exports = io;
 
 
 

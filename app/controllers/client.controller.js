@@ -15,6 +15,11 @@ const getClientOrders = catchAsync(async (req, res) => {
     res.status(httpStatus.OK).send(orders);
   });
 
+  const getClientHistorical = catchAsync(async (req, res) => {
+    const orders = await clientService.getClientHistorical(req.params.clientId);
+    res.status(httpStatus.OK).send(orders);
+});
+
 const createOrder = catchAsync(async (req, res) => {
     const order = await clientService.createClientOrder(req.body.order);
     res.status(httpStatus.CREATED).send(order); 
@@ -38,6 +43,7 @@ module.exports = {
     create,
     createOrder,
     getClientOrders,
+    getClientHistorical,
     updateClientProfil,
     getClientProfil,
     

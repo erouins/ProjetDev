@@ -36,6 +36,15 @@ const getClientOrders = async (clientId) => {
         }
       })
 }
+
+const getClientHistorical = async (clientId) => {
+    return Order.find({ client: clientId, status:  'done' || 'rejected'}).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
+        path : 'menus',
+        populate : {
+          path : 'articles'
+        }
+      });}
+
 const createClientOrder = async (order) => {
     return Order.create(order);
 }
@@ -67,6 +76,7 @@ module.exports = {
     createClientProfil,
     getClientProfil,
     getClientOrders,
+    getClientHistorical,
     updateClientProfil,
     createClientOrder,
     getOrderById,

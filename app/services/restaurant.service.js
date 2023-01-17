@@ -37,6 +37,8 @@ const getArticleById = async (articleId) => {
   return Article.findById(articleId);
 };
 
+
+
 const getRestaurantProfil = async (userId) => {
   return Restaurant.findOne({ user: userId })
     .populate([{
@@ -76,6 +78,16 @@ const updateMenu = async (restaurantId, menuFields) => {
 const getRestaurantOrders = async (restaurantId) => {
   return Order.find({ restaurant: restaurantId, isPayed: true }).populate('client').populate("menus").populate("articles");
 };
+
+const getRestaurantHistorical = async (restaurantId) => {
+  return Order.find({ restaurant: restaurantId, status: 'done' || 'rejected' }).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
+    path : 'menus',
+    populate : {
+      path : 'articles'
+    }
+  });}
+
+
 
 const getRestaurants = async () => {
   return await Restaurant.find().populate("menus").populate("articles");
@@ -118,6 +130,17 @@ const deleteArticleById = async (articleId) => {
   return article;
 }
 
+const deleteOrderById = async (orderId) => {
+  logger.debug("[ ] [SERVICE]  Delete article by Id: " + orderId)
+  console.log('id: ', orderId)
+  const order = await Order.findOne({ _id: orderId });
+  if (!order) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+  }
+  await order.remove();
+  return order;
+}
+
 const deleteProfile = async (userId) => {
   const profile = await Restaurant.findById( userId);
   try {
@@ -134,12 +157,14 @@ module.exports = {
   createRestaurantProfil,
   getRestaurantProfil,
   getRestaurantProfilById,
+  getRestaurantHistorical,
   updateRestaurantProfile,
   getRestaurantOrders,
   getRestaurants,
   createArticle,
   createMenu,
   deleteMenuById,
+  deleteOrderById,
   getMenuById,
   deleteArticleById,
   updateArticle,

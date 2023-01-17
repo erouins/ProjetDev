@@ -29,9 +29,18 @@ const updateDeliveryProfil = async (userId, profil) => {
 }
 
 const getDeliveryOrders = async (deliveryId) => {
-    const order = Order.findOne({ delivery: deliveryId, $or: [ {status: 'accepted' },{status: 'deliver' } ] }).populate('client').populate('restaurant');
+    const order = Order.findOne({ delivery: deliveryId, $or: [{ status: 'accepted' }, { status: 'deliver' }] }).populate('client').populate('restaurant');
     return order;
 };
+
+const getDeliveryHistorical = async (deliveryId) => {
+    return Order.find({ delivery: deliveryId, status: 'done' || 'rejected' }).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
+        path : 'menus',
+        populate : {
+          path : 'articles'
+        }
+      });}
+
 
 const getPendingOrders = async () => {
     return Order.find({ status: 'restaurantAccepted', isPayed: true }).populate('client').populate('restaurant');
@@ -76,17 +85,17 @@ const markOrderAsDone = async (orderId) => {
 }
 
 const deleteProfile = async (userId) => {
-    console.log("usser" , userId)
+    console.log("usser", userId)
     const profile = await Delivery.findById(userId);
-    
+
     try {
-        profile.remove();  
+        profile.remove();
     } catch (error) {
         console.log('user is not deliver')
     }
     return profile;
-  }
-  
+}
+
 
 
 
@@ -96,6 +105,7 @@ module.exports = {
     getDeliveryProfil,
     getDeliveryProfilbyId,
     getDeliveryOrders,
+    getDeliveryHistorical,
     getPendingOrders,
     assignOrder,
     takeFromRestaurant,

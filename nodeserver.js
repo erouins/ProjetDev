@@ -7,7 +7,7 @@ const compair = require('./compairAlgo.ts');
 const passport = require('passport');
 const routes = require('./app/routes');
 const { jwtStrategy } = require('./app/config/passport');
-const i = require('socket.io')
+
 
 
 /*************************************************/ 
@@ -57,12 +57,28 @@ app.use(bodyParser.urlencoded({
 app.use(routes);
 
 
-let io;
+global.io;
 
 /********************************/
 /*** Start serveur avec test DB */
 
+const serverr = app.listen(process.env.API_PORT || dotenv.API_PORT, () => {
+  console.log('Server app listening on port ' + process.env.API_PORT || dotenv.API_PORT)
+});
+global.io = require('socket.io')(serverr);
 
+io.on('connection', (socket) => {
+  socket.emit("welcome");
+  console.log('connected socket')
+});
+
+const sendData = (action) => { 
+  console.log(io)
+  if (action == "orderModified"){
+      io.emit('orderModified');
+  }
+
+}
 mongodb.mongoose.connect(mongodb.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -71,25 +87,22 @@ mongodb.mongoose.connect(mongodb.url, {
     .then(() => console.log('Connection to sql server has been established on port', process.env.SQL_PORT))
     .catch(err => console.error('Unable to connect to the database:', err));
   })
-  .then(async () => {
+  .then( () => {
     console.log("Connected to the database!");
-    const serverr = app.listen(process.env.API_PORT || dotenv.API_PORT, () => {
-      console.log('Server app listening on port ' + process.env.API_PORT || dotenv.API_PORT)
-    });
-    io = new i({serverr});
-    console.log("io", io)
+   
 
-    io.on('connection', (socket) => {
-      socket.emit("welcome");
-      console.log('connected socket')
-    });
+    
   })
   .catch(err => {
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
 
-  module.exports = io;
+  module.exports = {
+    sendData,
+  };
+
+
 
 
 

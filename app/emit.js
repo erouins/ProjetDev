@@ -1,5 +1,3 @@
-const io = require('../nodeserver');
-
 function sendData(action) { 
     console.log(io)
     if (action == "orderModified"){

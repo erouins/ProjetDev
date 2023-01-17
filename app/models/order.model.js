@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const socket = require('../emit');
 const { toJSON, paginate } = require('./plugins');
 
 
@@ -57,5 +58,12 @@ orderSchema.plugin(paginate);
  * @typedef Order
  */
 const Order = mongoose.model('Order', orderSchema);
+
+const changeStream = Order.watch();
+changeStream.on('change', (change) => {
+  console.log('Change detected restaurant:', change);
+    socket.sendData("orderModified")
+});
+
 
 module.exports = Order;

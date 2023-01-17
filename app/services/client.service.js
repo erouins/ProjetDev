@@ -1,7 +1,7 @@
 const { Client, Order } = require('../models');
 const logger = require('../config/logger');
 const mongoose = require('mongoose');
-const socket = require('../emit');
+
 /**
  * Create a client
  * @param {Object} profil Object containing the user profil
@@ -38,7 +38,7 @@ const getClientOrders = async (clientId) => {
 }
 
 const getClientHistorical = async (clientId) => {
-    return Order.find({ client: clientId, status:  'done' || 'rejected'}).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
+    return Order.find({ client: clientId, $or: [{ status: 'done' }, { status: 'rejected' }]}).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
         path : 'menus',
         populate : {
           path : 'articles'
@@ -72,11 +72,6 @@ const deleteProfile = async (userId) => {
 
 
 
-const changeStream = Order.watch();
-changeStream.on('change', (change) => {
-  console.log('Change detected:', change);
-    socket.sendData("orderModified")
-});
 
 
 

@@ -19,10 +19,10 @@ router.route('/create')
     .post(auth('client'), validate(clientValidation.createClientProfil), clientController.create);
 
 router.route('/:clientId')
-    .get(auth(), clientController.getClientProfil);
+    .get(auth('client'), clientController.getClientProfil);
 
 router.route('/:clientId/historical')
-    .get(auth(), validate(clientValidation.getClientOrders), clientController.getClientHistorical);
+    .get(auth('client'), validate(clientValidation.getClientOrders), clientController.getClientHistorical);
 
 router.route('/:clientId/orders')
     .get(auth('client'), validate(clientValidation.getClientOrders), clientController.getClientOrders);

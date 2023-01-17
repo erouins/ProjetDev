@@ -34,7 +34,7 @@ const getDeliveryOrders = async (deliveryId) => {
 };
 
 const getDeliveryHistorical = async (deliveryId) => {
-    return Order.find({ delivery: deliveryId, status: 'done' || 'rejected' }).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
+    return Order.find({ delivery: deliveryId, $or: [{ status: 'done' }, { status: 'rejected' }]}).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
         path : 'menus',
         populate : {
           path : 'articles'

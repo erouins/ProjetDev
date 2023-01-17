@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError');
 const httpStatus = require('http-status');
 const mongoose = require('mongoose');
 
+
 /**
  * Create a user
  * @param {Object} restaurantBody
@@ -80,7 +81,7 @@ const getRestaurantOrders = async (restaurantId) => {
 };
 
 const getRestaurantHistorical = async (restaurantId) => {
-  return Order.find({ restaurant: restaurantId, status: 'done' || 'rejected' }).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
+  return Order.find({ restaurant: restaurantId,$or: [{ status: 'done' }, { status: 'rejected' }]}).populate(['restaurant', 'delivery' , 'articles', 'menus']).populate({
     path : 'menus',
     populate : {
       path : 'articles'
@@ -150,6 +151,7 @@ const deleteProfile = async (userId) => {
   }
   return profile;
 }
+
 
 
 

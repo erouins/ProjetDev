@@ -93,7 +93,6 @@ const deleteMenuById = catchAsync(async (req, res) => {
 
 const deleteOrderById =  catchAsync(async (req, res) => {
     const orderId = req.params.orderId;
-    console.log('iid: ', req.params)
     logger.debug("[ ] [CONTROLLER]  Delete menu by Id: " + orderId);
     await restaurantService.deleteOrderById(req.params.orderId);
     res.status(httpStatus.OK)

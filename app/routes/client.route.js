@@ -36,6 +36,9 @@ router.route('/:clientId/update-profil')
 router.route('/:clientId/update-order')
     .put(auth('client'), validate(clientValidation.updateOrder), userController.updateOrder);
 
+router.route('/:orderId/order/delete')
+    .delete(auth(), clientController.deleteOrderById);
+
 router.route('/:clientId/create-checkout-session').post(auth(), clientController.createCheckoutSession);
 
 router.route('/payOrder').post(express.raw({ type: 'application/json' }), clientController.clientPayOrder);

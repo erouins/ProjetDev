@@ -76,6 +76,12 @@ const clientPayOrder = catchAsync(async (request, res) => {
       res.status(httpStatus.OK).send(order);
 
   });
+const deleteOrderById =  catchAsync(async (req, res) => {
+    const orderId = req.params.orderId;
+    logger.debug("[ ] [CONTROLLER]  Delete menu by Id: " + orderId);
+    await clientService.deleteOrderById(req.params.orderId);
+    res.status(httpStatus.OK)
+})
 
 const updateClientProfil = catchAsync(async (req, res) => {
     const clientId = req.params.clientId;
@@ -98,6 +104,7 @@ module.exports = {
     getClientHistorical,
     updateClientProfil,
     getClientProfil,
+    deleteOrderById,
     createCheckoutSession,
     clientPayOrder
 };

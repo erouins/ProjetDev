@@ -53,6 +53,17 @@ const getOrderById = async (orderId) => {
     return Order.findById(orderId).populate(["articles", "menus"]);
 }
 
+const deleteOrderById = async (orderId) => {
+    logger.debug("[ ] [SERVICE]  Delete order by Id: " + orderId)
+    console.log('id: ', orderId)
+    const order = await Order.findOne({ _id: orderId });
+    if (!order) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Order not found');
+    }
+    await order.remove();
+    return order;
+  }
+
 const markOrderAsPaid = async (orderId) => {
     const order = await Order.findById(orderId);
     order.isPayed = true;
@@ -78,6 +89,7 @@ const deleteProfile = async (userId) => {
 module.exports = {
     createClientProfil,
     getClientProfil,
+    deleteOrderById,
     getClientOrders,
     getClientHistorical,
     updateClientProfil,

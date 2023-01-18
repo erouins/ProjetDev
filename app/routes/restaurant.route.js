@@ -5,13 +5,11 @@ const restaurantController = require('../controllers/restaurant.controller');
 const userController = require('../controllers/user.controller');
 const restaurantValidation = require('../validations/restaurant.validation');
 
-// AJOUTER MIDDLEWARE A TOUS !!!!!!!!!!!!!!!!!!!!!!
+
 
 
 const router = express.Router();
 
-// router.route('/:restaurantId/orders')
-//     .get(auth(), validate(restaurantValidation.getRestaurantOrders), restaurantController.getRestaurantOrders)
 router.route('/create')
     .post(auth('restaurant'), validate(restaurantValidation.createRestaurant), restaurantController.create);
 

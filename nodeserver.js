@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const checkTokenMiddleware = require('./app/middlewares/jsonwebtoken/check');
 const compair = require('./compairAlgo.ts');
 const passport = require('passport');
 const routes = require('./app/routes');

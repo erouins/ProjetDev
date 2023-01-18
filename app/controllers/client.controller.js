@@ -14,6 +14,7 @@ const create =  catchAsync(async (req, res) => {
 
 const getClientOrders = catchAsync(async (req, res) => {
     const orders = await clientService.getClientOrders(req.params.clientId);
+    console.log(orders.createdAt)
     res.status(httpStatus.OK).send(orders);
   });
 

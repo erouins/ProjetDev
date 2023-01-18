@@ -18,7 +18,7 @@ router.use( (req, res, next) => {
     next()
 });
 
-// AJOUTER MIDDLEWARE A TOUS !!!!!!!!!!!!!!!!!!!!!!
+
 
 router.post('/forgot-password', validate(authValidation.forgotPassword), authCtrl.forgotPassword);
 router.post('/reset-password', validate(authValidation.resetPassword), authCtrl.resetPassword);

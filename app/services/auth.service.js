@@ -22,18 +22,18 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   console.log(email);
   console.log(password);
 
-  // Validation des données reçues
+  
   if (!email || !password) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'no email or password');
   }
 
   try {
-    // Vérification si l'utilisateur existe
+
     let user = await User.findOne({ where: { email: email } });
     if (user === null) {
       throw new ApiError(httpStatus.UNAUTHORIZED, 'This account does not exists !');
     }
-    // Vérification du mot de passe
+   
     let test = await bcrypt.compare(password, user.password)
     if (!test) {
       throw new ApiError(httpStatus.UNAUTHORIZED, 'Wrong password');

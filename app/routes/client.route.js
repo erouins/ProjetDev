@@ -1,4 +1,3 @@
-// const auth = require('../middlewares/auth');
 const express = require('express');
 const auth = require('../middlewares/auth');
 const validate = require('../middlewares/validate');
@@ -7,11 +6,9 @@ const userController = require('../controllers/user.controller');
 const clientValidation = require('../validations/client.validation');
 
 
-//const stripe = require('stripe')('sk_test_51LEAlbLhNfISaHcD8OZv3CwsgLas8yqCN08YrZUVMREgzVN0XdjDq1cH9WC7NKlc6fexCaavX6VkZmsD9wXHU3C400eWwGJ3zL');
 
-// Find your endpoint's secret in your Dashboard's webhook settings
 
-// AJOUTER MIDDLEWARE A TOUS !!!!!!!!!!!!!!!!!!!!!!
+
 
 const router = express.Router();
 

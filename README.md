@@ -32,7 +32,6 @@ winston
 bcryptjs
 passport
 winston
- 
-
+stripe
 
 

@@ -84,7 +84,7 @@ const deleteMenuById = catchAsync(async (req, res) => {
     const menuId = req.body.menuId;
     const userId = req.body.userId;
     logger.debug("[ ] [CONTROLLER]  Delete menu by Id: " + menuId)
-    const menuDeleted = await restaurantService.deleteMenuById(menuId);
+    const menuDeleted = await restaurantService.deleteMenuById(menuId, userId);
   
     const restaurantProfil = restaurantService.getRestaurantProfil(userId);
     console.log(res);

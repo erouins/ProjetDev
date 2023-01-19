@@ -112,7 +112,7 @@ const createMenu = async (restaurantId, menuFilds) => {
 }
 
 const deleteMenuById = async (menuId, restaurantId) => {
-  
+  console.log("reaturant : ",restaurantId, "menu : ", menuId)
   await Restaurant.findOneAndUpdate(
       {user: restaurantId },
       { $pull: { menus: { $in: mongoose.Types.ObjectId(menuId) } } }

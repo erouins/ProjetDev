@@ -82,9 +82,10 @@ const createMenu = catchAsync(async (req, res) => {
 
 const deleteMenuById = catchAsync(async (req, res) => {
     const menuId = req.body.menuId;
+    const userId = req.body.userId;
     logger.debug("[ ] [CONTROLLER]  Delete menu by Id: " + menuId)
     const menuDeleted = await restaurantService.deleteMenuById(menuId);
-    const userId = req.body.userId;
+  
     const restaurantProfil = restaurantService.getRestaurantProfil(userId);
     console.log(res);
     console.log(httpStatus.DELETE)
@@ -100,9 +101,10 @@ const deleteOrderById =  catchAsync(async (req, res) => {
 
 const deleteArticleById = catchAsync(async (req, res) => {
     const articleId = req.body.articleId;
-    logger.debug("[ ] [CONTROLLER]  Delete article by Id: " + articleId)
-    const articleDeleted = await restaurantService.deleteArticleById(articleId);
     const userId = req.body.userId;
+    logger.debug("[ ] [CONTROLLER]  Delete article by Id: " + articleId)
+    const articleDeleted = await restaurantService.deleteArticleById(articleId, userId);
+
     const restaurantProfil = await restaurantService.getRestaurantProfil(userId);
     res.status(httpStatus.OK).send(restaurantProfil);
 })

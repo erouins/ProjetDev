@@ -111,7 +111,12 @@ const createMenu = async (restaurantId, menuFilds) => {
   return Menu.create(menu);
 }
 
-const deleteMenuById = async (menuId) => {
+const deleteMenuById = async (menuId, restaurantId) => {
+  
+  await Restaurant.findOneAndUpdate(
+      {user: restaurantId },
+      { $pull: { menus: { $in: mongoose.Types.ObjectId(menuId) } } }
+  )
   logger.debug("[ ] [SERVICE]  Delete menu by Id: " + menuId)
   const menu = await getMenuById(menuId);
   if (!menu) {
@@ -121,7 +126,16 @@ const deleteMenuById = async (menuId) => {
   return menu;
 }
 
-const deleteArticleById = async (articleId) => {
+const deleteArticleById = async (articleId, restaurantId) => {
+  const restaurant = await getRestaurantProfil(restaurantId)
+  await Restaurant.findOneAndUpdate(
+      {user: restaurantId },
+      { $pull: { articles: { $in: mongoose.Types.ObjectId(articleId) } } }
+  )
+  await Menu.updateMany(
+    {restaurant: mongoose.Types.ObjectId(restaurant.id) },
+    { $pull: { articles: { $in: mongoose.Types.ObjectId(articleId) } } }
+  )
   logger.debug("[ ] [SERVICE]  Delete article by Id: " + articleId)
   const article = await getArticleById(articleId);
   if (!article) {

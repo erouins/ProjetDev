@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
+const socket = require('../emit');
 
 
 const menuSchema = mongoose.Schema(
@@ -47,5 +48,11 @@ menuSchema.plugin(paginate);
  * @typedef Menu
  */
 const Menu = mongoose.model('Menu', menuSchema);
+
+const changeStream = Menu.watch();
+changeStream.on('change', (change) => {
+  console.log('Change detected restaurant:', change);
+    socket.sendData("menuModified")
+});
 
 module.exports = Menu;

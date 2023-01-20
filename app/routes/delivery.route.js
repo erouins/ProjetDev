@@ -8,7 +8,30 @@ const deliveryValidation = require('../validations/delivery.validation');
 
 
 const router = express.Router();
-
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     description: Returns a list of users
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: An array of users
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/User'
+ *
+ * definitions:
+ *   User:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: integer
+ *       name:
+ *         type: string
+ */
 router.route('/create')
     .post(auth('deliverer'), validate(deliveryValidation.createDeliveryProfil), deliveryController.create);
 

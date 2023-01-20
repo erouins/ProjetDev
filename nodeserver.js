@@ -5,6 +5,9 @@ const cors = require('cors');
 const compair = require('./compairAlgo.ts');
 const passport = require('passport');
 const routes = require('./app/routes');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerExpress = require('swagger-express-mw');
 const { jwtStrategy } = require('./app/config/passport');
 
 
@@ -48,6 +51,32 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+/**
+ * Mise en place swagger doc
+ */
+
+const options = {
+  swaggerDefinition: {
+      openapi: "3.0.0",
+      info: {
+          title: "My API",
+          version: "1.0.0"
+      },
+      servers: [
+          {
+              url: "http://localhost:3001"
+          }
+      ]
+  },
+  apis: ['./app/routes/*.js']
+};
+
+const specs = swaggerJsdoc(options);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+
 
 
 /******************************/

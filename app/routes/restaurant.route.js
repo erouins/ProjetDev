@@ -9,7 +9,42 @@ const restaurantValidation = require('../validations/restaurant.validation');
 
 
 const router = express.Router();
-
+/**
+ * @swagger
+ * /create:
+ *   post:
+ *     parameters: 
+ *          type: object
+ *          properties:
+ *              $ref: '#definitions/profil' 
+ *     description: Create restaurant user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       201:
+ *         description: restaurant created
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/profil'
+ *
+ * definitions:
+ *   profil:
+ *     type: object
+ *     properties:
+ *       address:
+ *         type: string
+ *       city:
+ *         type: string
+ *       zipcode:
+ *         type: string
+ *       name:
+ *         type: string
+ *       description:
+ *         type: string
+ *       image:
+ *         type: string
+ */
 router.route('/create')
     .post(auth('restaurant'), validate(restaurantValidation.createRestaurant), restaurantController.create);
 
